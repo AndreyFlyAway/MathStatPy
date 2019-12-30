@@ -1,4 +1,5 @@
 #include "Python.h"
+#include "combinatorics.h"
 
 /* objects */
 static PyObject *ErrorObject;
@@ -27,9 +28,26 @@ test_function(PyObject *self, PyObject *args)
     return PyLong_FromLong(sts);
 }
 
+
+static PyObject *
+Permutation(PyObject *self, PyObject *args)
+{
+    const char *command;
+    unsigned long int N;
+    unsigned  int res;
+    
+    if (!PyArg_ParseTuple(args, "l", &N))
+        return NULL;
+    res = fact(N);
+    
+    return PyLong_FromLong(res);
+}
+
 static PyMethodDef MathStatPy_methods[] = {
     {"test_function",             test_function,         METH_VARARGS,
         PyDoc_STR("Test func")},
+    {"P",             Permutation,         METH_VARARGS,
+        PyDoc_STR("Permutation")},
     {NULL,              NULL}           /* sentinel */
 };
 
