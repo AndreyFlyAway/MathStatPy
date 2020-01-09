@@ -19,7 +19,9 @@ except ImportError:
 
 module1 = Extension(NAME,
 		    include_dirs = ['./common'],
-                    sources = ['MathStatPy.cpp', "./common/combinatorics.cpp"])
+                    #libraries = ['tcl83'],
+                    #library_dirs = ['/home/user/Install/Python-3.8.1/build/lib.linux-x86_64-3.8/'],
+                    sources = ['MathStatPy.c', "./common/combinatorics.cpp", "./common/combinatorics.h"])
 
 setup (name=NAME,
        version=VERSION,
