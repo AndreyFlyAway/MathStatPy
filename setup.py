@@ -19,7 +19,7 @@ except ImportError:
 
 module1 = Extension(NAME,
 		    include_dirs=['common'],
-                    sources=['MathStatPy.c', os.path.join('common', 'combinatorics.c')], )
+            sources=['MathStatPy.c', os.path.join('common', 'combinatorics.c')], )
                     #sources=['MathStatPy.c', 'combinatorics.c', ], )
 
 setup (name=NAME,

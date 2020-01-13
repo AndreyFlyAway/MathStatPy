@@ -15,25 +15,16 @@ static PyTypeObject MathStatPyo_Type;
 
 
 /* methods */
-static PyObject *
-test_function(PyObject *self, PyObject *args)
-{
-    const char *command;
-    int sts;
-    // TODO: add value range checking 
-    if (!PyArg_ParseTuple(args, "l", &command))
-        return NULL;
-    sts = system(command);
-    
-    return PyLong_FromLong(sts);
-}
 
+PyDoc_STRVAR(MathStatPy_permutation_doc,
+"P(N)\n\
+\n\
+Return amount of permutation for N objects.");
 
 static PyObject *
 Permutation(PyObject *self, PyObject *args)
 {
-    const char *command;
-    int N;
+    long int N;
     long int res;
     
     if (!PyArg_ParseTuple(args, "l", &N))
@@ -146,17 +137,14 @@ static PyTypeObject Null_Type = {
 
 
 static PyMethodDef MathStatPy_methods[] = {
-    {"test_function",             test_function,         METH_VARARGS,
-        PyDoc_STR("Test func")},
     {"P",             (PyCFunction)Permutation,         METH_VARARGS,
-        PyDoc_STR("Permutation")},
+            MathStatPy_permutation_doc},
     {NULL,              NULL}           /* sentinel */
 };
 
 
 PyDoc_STRVAR(module_doc,
 "This is a template module just for instruction.");
-
 
 static int
 MathStatPy_exec(PyObject *m)
