@@ -1,6 +1,6 @@
 #ifndef COMBINATORICS_H_
 #define COMBINATORICS_H_
 
-unsigned long int fact(unsigned int N); 
+long int fact(long int N); 
 
 #endif

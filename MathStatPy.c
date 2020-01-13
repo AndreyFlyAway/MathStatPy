@@ -20,8 +20,8 @@ test_function(PyObject *self, PyObject *args)
 {
     const char *command;
     int sts;
-
-    if (!PyArg_ParseTuple(args, "s", &command))
+    // TODO: add value range checking 
+    if (!PyArg_ParseTuple(args, "l", &command))
         return NULL;
     sts = system(command);
     
@@ -33,8 +33,8 @@ static PyObject *
 Permutation(PyObject *self, PyObject *args)
 {
     const char *command;
-    unsigned long int N;
-    unsigned  int res;
+    int N;
+    long int res;
     
     if (!PyArg_ParseTuple(args, "l", &N))
         return NULL;
