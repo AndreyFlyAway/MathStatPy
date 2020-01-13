@@ -7,7 +7,7 @@ set (CMAKE_CXX_FLAGS "-fpermissive")
 set(I /usr/local/include/python3.8/)
 
 add_library(MathStatPyLib SHARED
-		common/combinatorics.c
+		common/combinatorics.cpp
             common/combinatorics.h
 		MathStatPy.c)
 

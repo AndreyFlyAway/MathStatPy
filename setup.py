@@ -19,8 +19,11 @@ except ImportError:
 
 module1 = Extension(NAME,
 		    include_dirs=['common'],
-            sources=['MathStatPy.c', os.path.join('common', 'combinatorics.c')], )
-                    #sources=['MathStatPy.c', 'combinatorics.c', ], )
+            sources=['MathStatPy.c'], )
+
+module1_common = Extension('common',
+		    include_dirs=['common'],
+            sources=[os.path.join('common', 'combinatorics.cpp')], )
 
 setup (name=NAME,
        version=VERSION,
@@ -29,4 +32,5 @@ setup (name=NAME,
        url=URL,
        description='This is a not spam package',
        package_dir={'common': 'common'},
-       ext_modules=[module1])
+       #ext_modules=[module1])
+       ext_modules=[module1, module1_common])
