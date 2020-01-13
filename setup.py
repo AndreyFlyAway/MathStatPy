@@ -18,15 +18,15 @@ except ImportError:
     from distutils.core import setup, Extension
 
 module1 = Extension(NAME,
-		    include_dirs = ['./common'],
-                    #libraries = ['tcl83'],
-                    #library_dirs = ['/home/user/Install/Python-3.8.1/build/lib.linux-x86_64-3.8/'],
-                    sources = ['MathStatPy.c', "./common/combinatorics.cpp", "./common/combinatorics.h"])
+		    include_dirs=['common'],
+                    sources=['MathStatPy.c', os.path.join('common', 'combinatorics.c')], )
+                    #sources=['MathStatPy.c', 'combinatorics.c', ], )
 
 setup (name=NAME,
        version=VERSION,
        author=AUTHOR,
        author_email=AUTHOR_EMAIL,
        url=URL,
-       description = 'This is a spam package',
-       ext_modules = [module1])
+       description='This is a not spam package',
+       package_dir={'common': 'common'},
+       ext_modules=[module1])

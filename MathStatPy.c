@@ -148,7 +148,7 @@ static PyTypeObject Null_Type = {
 static PyMethodDef MathStatPy_methods[] = {
     {"test_function",             test_function,         METH_VARARGS,
         PyDoc_STR("Test func")},
-    {"P",             Permutation,         METH_VARARGS,
+    {"P",             (PyCFunction)Permutation,         METH_VARARGS,
         PyDoc_STR("Permutation")},
     {NULL,              NULL}           /* sentinel */
 };
