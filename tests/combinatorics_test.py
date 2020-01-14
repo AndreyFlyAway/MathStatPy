@@ -1,5 +1,5 @@
 import MathStatPy
-
+import sys
 def Permutation_test():
     """
     Permutation test
@@ -9,6 +9,23 @@ def Permutation_test():
     #print(help(MathStatPy.P))
     for i in range(0, 10):
         print(MathStatPy.P(i))
+    print("Permutation out of range test.")
+    try:
+        print(MathStatPy.P(-1))
+    except:
+        print(sys.exc_info())
+    try:
+        print(MathStatPy.P(-1))
+    except:
+        print(sys.exc_info())
+    try:
+        print(MathStatPy.P(-2))
+    except:
+        print(sys.exc_info())
+    try:
+        print(MathStatPy.P(1.1))
+    except:
+        print(sys.exc_info())
 
 def Variations_test():
     """

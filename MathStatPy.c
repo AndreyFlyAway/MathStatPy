@@ -2,7 +2,7 @@
 #include "combinatorics.h"
 
 /* objects */
-static PyObject *ErrorObject;
+static PyObject *ErrorWrongValueObject;
 
 typedef struct {
     PyObject_HEAD
@@ -19,7 +19,7 @@ static PyTypeObject MathStatPyo_Type;
 PyDoc_STRVAR(MathStatPy_permutation_doc,
 "P(N)\n\
 \n\
-Return amount of permutation for N objects.");
+Return amount of permutation for N objects. N must be rather 0");
 
 static PyObject *
 Permutation(PyObject *self, PyObject *args)
@@ -28,15 +28,20 @@ Permutation(PyObject *self, PyObject *args)
     // TODO: add value range checking
     if (!PyArg_ParseTuple(args, "l", &N))
         return NULL;
+    if (N < 0) {
+        PyErr_SetString(ErrorWrongValueObject, "N cant be less then 0!");
+        return NULL;
+    }
     res = _factorial(N);
     
     return PyLong_FromLong(res);
 }
 
 PyDoc_STRVAR(MathStatPy_variations_doc,
-"A(m,n )\n\
+"A(m,n)\n\
 \n\
-Return amount of variations without repetitions for m of n objects.");
+Return amount of variations without repetitions for m of n objects."
+"Value m cant be raher n. Both m and n must be rather 0.");
 
 static PyObject *
 Variations(PyObject *self, PyObject *args)
@@ -45,6 +50,14 @@ Variations(PyObject *self, PyObject *args)
     // TODO: add value range checking
     if (!PyArg_ParseTuple(args, "ll", &M, &N))
         return NULL;
+    if ((M < 0) || (N < 0)){
+        PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
+        return NULL;
+    }
+    if (M > N) {
+        PyErr_SetString(ErrorWrongValueObject, "M cant be rather then N!");
+        return NULL;
+    }
     res = _variations(M, N);
 
     return PyLong_FromLong(res);
@@ -188,13 +201,13 @@ MathStatPy_exec(PyObject *m)
         goto fail;
 
     /* Add some symbolic constants to the module */
-    if (ErrorObject == NULL) {
-        ErrorObject = PyErr_NewException("MathStatPy.error", NULL, NULL);
-        if (ErrorObject == NULL)
+    if (ErrorWrongValueObject == NULL) {
+        ErrorWrongValueObject = PyErr_NewException("MathStatPy.error", NULL, NULL);
+        if (ErrorWrongValueObject == NULL)
             goto fail;
     }
-    Py_INCREF(ErrorObject);
-    PyModule_AddObject(m, "error", ErrorObject);
+    Py_INCREF(ErrorWrongValueObject);
+    PyModule_AddObject(m, "Wrong value error.", ErrorWrongValueObject);
 
     /* Add Str */
     if (PyType_Ready(&Str_Type) < 0)
@@ -208,6 +221,8 @@ MathStatPy_exec(PyObject *m)
     return 0;
  fail:
     Py_XDECREF(m);
+    Py_CLEAR(ErrorWrongValueObject);
+    Py_DECREF(m);
     return -1;
 }
 
