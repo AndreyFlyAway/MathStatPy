@@ -9,10 +9,8 @@ typedef struct {
     PyObject            *x_attr;        /* Attributes dictionary */
 } MathStatPyoObject;
 
-static PyTypeObject MathStatPyo_Type;
-
-#define XxoObject_Check(v)      (Py_TYPE(v) == &MathStatPyo_Type)
-
+//static PyTypeObject MathStatPyo_Type;
+//#define XxoObject_Check(v)      (Py_TYPE(v) == &MathStatPyo_Type)
 
 /* methods */
 
@@ -202,7 +200,7 @@ MathStatPy_exec(PyObject *m)
 
     /* Add some symbolic constants to the module */
     if (ErrorWrongValueObject == NULL) {
-        ErrorWrongValueObject = PyErr_NewException("MathStatPy.error", NULL, NULL);
+        ErrorWrongValueObject = PyErr_NewException("MathStatPy.ValueRangeError", NULL, NULL);
         if (ErrorWrongValueObject == NULL)
             goto fail;
     }
@@ -221,8 +219,6 @@ MathStatPy_exec(PyObject *m)
     return 0;
  fail:
     Py_XDECREF(m);
-    Py_CLEAR(ErrorWrongValueObject);
-    Py_DECREF(m);
     return -1;
 }
 

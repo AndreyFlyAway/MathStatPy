@@ -39,6 +39,23 @@ def Variations_test():
     print(MathStatPy.A(3, 4))
     print(MathStatPy.A(2, 5))
     print(MathStatPy.A(3, 5))
+    print("Variations out of range test.")
+    try:
+        print(MathStatPy.A(-1))
+    except:
+        print(sys.exc_info())
+    try:
+        print(MathStatPy.A(-1, 2))
+    except:
+        print(sys.exc_info())
+    try:
+        print(MathStatPy.A(2, -3))
+    except:
+        print(sys.exc_info())
+    try:
+        print(MathStatPy.A(25, 13))
+    except:
+        print(sys.exc_info())
 
 if __name__ == "__main__":
     Permutation_test()
