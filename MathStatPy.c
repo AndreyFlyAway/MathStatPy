@@ -24,13 +24,29 @@ Return amount of permutation for N objects.");
 static PyObject *
 Permutation(PyObject *self, PyObject *args)
 {
-    long int N;
-    long int res;
-    
+    long int N, res;
+    // TODO: add value range checking
     if (!PyArg_ParseTuple(args, "l", &N))
         return NULL;
     res = fact(N);
     
+    return PyLong_FromLong(res);
+}
+
+PyDoc_STRVAR(MathStatPy_variations_doc,
+"A(m,n )\n\
+\n\
+Return amount of variations without repetitions for m of n objects.");
+
+static PyObject *
+Variations(PyObject *self, PyObject *args)
+{
+    long int M, N, res;
+    // TODO: add value range checking
+    if (!PyArg_ParseTuple(args, "ll", &M, &N))
+        return NULL;
+    res = _variations(M, N);
+
     return PyLong_FromLong(res);
 }
 
@@ -139,12 +155,14 @@ static PyTypeObject Null_Type = {
 static PyMethodDef MathStatPy_methods[] = {
     {"P",             (PyCFunction)Permutation,         METH_VARARGS,
             MathStatPy_permutation_doc},
+    {"A",             (PyCFunction)Variations,         METH_VARARGS,
+            MathStatPy_variations_doc},
     {NULL,              NULL}           /* sentinel */
 };
 
 
 PyDoc_STRVAR(module_doc,
-"This is a template module just for instruction.");
+"Implementation some functions for probability theory and mathematical statistics.");
 
 static int
 MathStatPy_exec(PyObject *m)
