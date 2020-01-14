@@ -28,7 +28,7 @@ Permutation(PyObject *self, PyObject *args)
     // TODO: add value range checking
     if (!PyArg_ParseTuple(args, "l", &N))
         return NULL;
-    res = fact(N);
+    res = _factorial(N);
     
     return PyLong_FromLong(res);
 }

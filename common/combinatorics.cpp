@@ -6,12 +6,12 @@
 /*
  *  factorial
  */
-long int fact(long int N)
+long int _factorial(long int N)
 {
     if ( N == 0)
         return 1;
     else
-      return N * fact(N - 1);
+      return N * _factorial(N - 1);
 }
 
 /*

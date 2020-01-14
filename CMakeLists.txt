@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project (MathStatPyLib)
 
+set(NAME MathStatPyLib)
+
 set(CMAKE_BUILD_TYPE Release)
 set (CMAKE_CXX_FLAGS "-fpermissive")
 set(I /usr/local/include/python3.8/)
@@ -9,7 +11,7 @@ set(I /usr/local/include/python3.8/)
 add_library(MathStatPyLib SHARED
 		common/combinatorics.cpp
             common/combinatorics.h
-		MathStatPy.c)
+			MathStatPy.c)
 
             
 include_directories(common)

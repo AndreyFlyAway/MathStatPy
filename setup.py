@@ -18,12 +18,8 @@ except ImportError:
     from distutils.core import setup, Extension
 
 module1 = Extension(NAME,
-		    include_dirs=['common'],
-            sources=['MathStatPy.c', os.path.join('common', 'combinatorics.c'), os.path.join('common', 'combinatorics.h')], )
-
-module1_common = Extension('common',
-		    include_dirs=['common'],
-            sources=[os.path.join('common', 'combinatorics.c')], )
+		    include_dirs=['common', ],
+            sources=['MathStatPy.c', os.path.join('common', 'combinatorics.cpp')], )
 
 setup (name=NAME,
        version=VERSION,
