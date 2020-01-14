@@ -24,3 +24,13 @@ long int _variations(long int m, long int n)
     else
         return _variations(m - 1, n) * (n - m + 1);
 }
+
+/*
+ * combinations
+ */
+long int _combinations(long int m, long int n)
+{
+    long int C;
+    C = _factorial(n) / (_factorial(m) * _factorial(n - m));
+    return C;
+}
