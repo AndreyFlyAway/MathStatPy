@@ -19,7 +19,11 @@ except ImportError:
 
 module1 = Extension(NAME,
 		    include_dirs=['common', ],
-            sources=['MathStatPy.c', os.path.join('common', 'combinatorics.cpp')], )
+            sources=['MathStatPy.c',
+                     os.path.join('common', 'combinatorics.cpp'),
+                     os.path.join('common', 'probability_type.cpp',),
+                     ]
+                    )
 
 setup (name=NAME,
        version=VERSION,

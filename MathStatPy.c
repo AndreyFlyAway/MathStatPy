@@ -1,9 +1,56 @@
 #include "Python.h"
 #include "combinatorics.h"
+#include "probability_type.h"
+
 
 /* objects */
 static PyObject *ErrorWrongValueObject;
 
+static PyTypeObject ProbabilityType = {
+        /* The ob_type field must be initialized in the module init function
+         * to be portable to Windows without using C++. */
+        PyVarObject_HEAD_INIT(NULL, 0)
+        "MathStatPy.ProbabilityObject",             /*tp_name*/
+        sizeof(ProbabilityObject),                          /*tp_basicsize*/
+        0,                          /*tp_itemsize*/
+        /* methods */
+        0,                          /*tp_dealloc*/
+        0,                          /*tp_vectorcall_offset*/
+        0,                          /*tp_getattr*/
+        0,                          /*tp_setattr*/
+        0,                          /*tp_as_async*/
+        0,                          /*tp_repr*/
+        0,                          /*tp_as_number*/
+        0,                          /*tp_as_sequence*/
+        0,                          /*tp_as_mapping*/
+        0,                          /*tp_hash*/
+        0,                          /*tp_call*/
+        0,                          /*tp_str*/
+        0,                          /*tp_getattro*/
+        0,                          /*tp_setattro*/
+        0,                          /*tp_as_buffer*/
+        Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, /*tp_flags*/
+        "Representation of Probability value.",                          /*tp_doc*/
+        0,                          /*tp_traverse*/
+        0,                          /*tp_clear*/
+        0,                          /*tp_richcompare*/
+        0,                          /*tp_weaklistoffset*/
+        0,                          /*tp_iter*/
+        0,                          /*tp_iternext*/
+        0,                          /*tp_methods*/
+        0,                          /*tp_members*/
+        0,                          /*tp_getset*/
+        0, /* see PyInit_xx */      /*tp_base*/
+        0,                          /*tp_dict*/
+        0,                          /*tp_descr_get*/
+        0,                          /*tp_descr_set*/
+        0,                          /*tp_dictoffset*/
+        0,                          /*tp_init*/
+        0,                          /*tp_alloc*/
+        0,                          /*tp_new*/
+        0,                          /*tp_free*/
+        0,                          /*tp_is_gc*/
+};
 
 /* methods */
 // TODO: make limits for input values of combinatoric functions
@@ -117,6 +164,8 @@ MathStatPy_exec(PyObject *m)
     /* Finalize the type object including setting type of the new type
      * object; doing it here is required for portability, too. */
 
+    ProbabilityType.tp_base = &PyBaseObject_Type;
+
     /* Add some symbolic constants to the module */
     if (ErrorWrongValueObject == NULL) {
         ErrorWrongValueObject = PyErr_NewException("MathStatPy.ValueRangeError", NULL, NULL);
@@ -125,6 +174,11 @@ MathStatPy_exec(PyObject *m)
     }
     Py_INCREF(ErrorWrongValueObject);
     PyModule_AddObject(m, "Wrong value error.", ErrorWrongValueObject);
+
+    Py_INCREF(&ProbabilityType);
+    if (PyType_Ready(&ProbabilityType) < 0)
+        goto fail;
+    PyModule_AddObject(m, "ProbabilityType", (PyObject *)&ProbabilityType);
 
     return 0;
  fail:
