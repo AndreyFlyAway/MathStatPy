@@ -57,6 +57,20 @@ def Variations_test():
     except:
         print(sys.exc_info())
 
+def Combinations_test():
+    """
+    Permutation test
+    :return:
+    """
+    print("Combinations test.")
+    print(MathStatPy.C(1, 2))
+    print(MathStatPy.C(1, 4))
+    print(MathStatPy.C(2, 4))
+    print(MathStatPy.C(3, 4))
+    print(MathStatPy.C(2, 5))
+    print(MathStatPy.C(3, 5))
+
 if __name__ == "__main__":
-    Permutation_test()
-    Variations_test()
+    # Permutation_test()
+    # Variations_test()
+    Combinations_test()

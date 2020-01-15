@@ -23,7 +23,6 @@ static PyObject *
 Permutation(PyObject *self, PyObject *args)
 {
     long int N, res;
-    // TODO: add value range checking
     if (!PyArg_ParseTuple(args, "l", &N))
         return NULL;
     if (N < 0) {
@@ -45,7 +44,6 @@ static PyObject *
 Variations(PyObject *self, PyObject *args)
 {
     long int M, N, res;
-    // TODO: add value range checking
     if (!PyArg_ParseTuple(args, "ll", &M, &N))
         return NULL;
     if ((M < 0) || (N < 0)){
@@ -59,6 +57,37 @@ Variations(PyObject *self, PyObject *args)
     res = _variations(M, N);
 
     return PyLong_FromLong(res);
+}
+
+
+PyDoc_STRVAR(MathStatPy_combinations_doc,
+             "C(m,n)\n\
+\n\
+Return combinations of variations without repetitions for m of n objects."
+"Value m cant be raher n. Both m and n must be rather 0.");
+
+static PyObject *
+Combinations(PyObject *self, PyObject *args)
+{
+    long int M, N, res;
+    if (!PyArg_ParseTuple(args, "ll", &M, &N))
+        return NULL;
+    if ((M < 0) || (N < 0)){
+        PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
+        return NULL;
+    }
+    if ((M < 0) || (N < 0)){
+        PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
+        return NULL;
+    }
+    if (M > N) {
+        PyErr_SetString(ErrorWrongValueObject, "M cant be rather then N!");
+        return NULL;
+    }
+    res = _combinations(M, N);
+
+    return PyLong_FromLong(res);
+
 }
 
 static PyTypeObject Str_Type = {
@@ -164,10 +193,12 @@ static PyTypeObject Null_Type = {
 
 
 static PyMethodDef MathStatPy_methods[] = {
-    {"P",             (PyCFunction)Permutation,         METH_VARARGS,
+    {"P",             (PyCFunction)Permutation,          METH_VARARGS,
             MathStatPy_permutation_doc},
-    {"A",             (PyCFunction)Variations,         METH_VARARGS,
+    {"A",             (PyCFunction)Variations,           METH_VARARGS,
             MathStatPy_variations_doc},
+    {"C",             (PyCFunction)Combinations,         METH_VARARGS,
+            MathStatPy_combinations_doc},
     {NULL,              NULL}           /* sentinel */
 };
 
