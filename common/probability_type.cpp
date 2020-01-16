@@ -5,8 +5,6 @@
 // */
 #include "probability_type.h"
 
-
-
 ProbabilityObject *
 newProbabilityObject(PyObject *arg)
 {
@@ -31,6 +29,19 @@ ProbabilityObject_new(PyObject *self, PyObject *args)
         return NULL;
     return (PyObject *)rv;
 }
+
+int
+Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
+{
+    static char *kwlist[] = {"p_value", NULL};
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|f", kwlist,
+                                     self->p_value))
+        return -1;
+
+    return 0;
+}
+
 
 void
 ProbabilityObject_dealloc(ProbabilityObject *self)

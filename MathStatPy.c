@@ -12,13 +12,13 @@ static PyObject *ErrorWrongValueObject;
 //        {NULL,              NULL}           /* sentinel */
 //};
 
-static PyMemberDef Probability_members[] = {
+PyMemberDef Probability_members[] = {
         {"p_value", T_FLOAT, offsetof(ProbabilityObject, p_value), 0,
                 "probability value"},
         {NULL}  /* Sentinel */
 };
 
-static PyTypeObject ProbabilityType = {
+PyTypeObject ProbabilityType = {
      PyVarObject_HEAD_INIT(NULL, 0)
     .tp_name = "MathStatPy.ProbabilityObject",
     .tp_doc = "Representation of probability.",
@@ -26,6 +26,7 @@ static PyTypeObject ProbabilityType = {
     .tp_itemsize = 0,
     .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
     .tp_new = PyType_GenericNew,
+    .tp_init = (initproc) Probability_init,
     .tp_members = Probability_members,
     .tp_new = ProbabilityObject_new,
     .tp_dealloc = (destructor) ProbabilityObject_dealloc,
