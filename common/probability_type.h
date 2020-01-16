@@ -20,6 +20,8 @@ typedef struct {
 ProbabilityObject * newProbabilityObject(PyObject *arg);
 PyObject *ProbabilityObject_new(PyObject *self, PyObject *args);
 int probabilityo_setattr(ProbabilityObject *self, const char *name, PyObject *v);
+void ProbabilityObject_dealloc(ProbabilityObject *self);
+static PyTypeObject ProbabilityType;
 
 #ifdef __cplusplus
 }
