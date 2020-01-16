@@ -2,8 +2,8 @@
 // Created by user on 15.01.20.
 //
 
-#ifndef PROBABILITY_TYPE_H_H
-#define MATHSTATPYLIB_PROBABILITY_TYPE_H_H
+#ifndef MATHSTATPYLIB_PROBABILITY_TYPE_H
+#define MATHSTATPYLIB_PROBABILITY_TYPE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,10 +14,15 @@ extern "C" {
 typedef struct {
     PyObject_HEAD
     PyObject            *x_attr;        /* Attributes dictionary */
+    float p_value;
 } ProbabilityObject;
+
+ProbabilityObject * newProbabilityObject(PyObject *arg);
+PyObject *ProbabilityObject_new(PyObject *self, PyObject *args);
+int probabilityo_setattr(ProbabilityObject *self, const char *name, PyObject *v);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //PROBABILITY_TYPE_H_H
+#endif //MATHSTATPYLIB_PROBABILITY_TYPE_H_H

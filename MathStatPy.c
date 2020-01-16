@@ -1,10 +1,23 @@
 #include "Python.h"
 #include "combinatorics.h"
 #include "probability_type.h"
-
+#include "structmember.h"
 
 /* objects */
 static PyObject *ErrorWrongValueObject;
+
+//static PyMethodDef ProbabilityObject_methods[] = {
+//        {"new",             ProbabilityObject_new,         METH_VARARGS,
+//                PyDoc_STR("new() -> new probabilityo object")},
+//        {NULL,              NULL}           /* sentinel */
+//};
+
+static PyMemberDef Probability_members[] = {
+        {"p_value", T_FLOAT, offsetof(ProbabilityObject, p_value), 0,
+                "probability value"},
+        {NULL}  /* Sentinel */
+};
+
 
 static PyTypeObject ProbabilityType = {
         /* The ob_type field must be initialized in the module init function
@@ -38,7 +51,7 @@ static PyTypeObject ProbabilityType = {
         0,                          /*tp_iter*/
         0,                          /*tp_iternext*/
         0,                          /*tp_methods*/
-        0,                          /*tp_members*/
+        Probability_members,                          /*tp_members*/
         0,                          /*tp_getset*/
         0, /* see PyInit_xx */      /*tp_base*/
         0,                          /*tp_dict*/
@@ -47,13 +60,14 @@ static PyTypeObject ProbabilityType = {
         0,                          /*tp_dictoffset*/
         0,                          /*tp_init*/
         0,                          /*tp_alloc*/
-        0,                          /*tp_new*/
+        ProbabilityObject_new,                          /*tp_new*/
         0,                          /*tp_free*/
         0,                          /*tp_is_gc*/
 };
 
 /* methods */
 // TODO: make limits for input values of combinatoric functions
+// TODO: change type of input and output values to usigned
 
 PyDoc_STRVAR(MathStatPy_permutation_doc,
 "P(N)\n\
