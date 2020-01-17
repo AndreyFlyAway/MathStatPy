@@ -24,8 +24,9 @@ void ProbabilityObject_dealloc(ProbabilityObject *self);
 int Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds);
 //PyObject *Probability_pValSetAttr(ProbabilityObject *self, PyObject *name);
 //PyObject *Probability_pValGetAttr(ProbabilityObject *self, PyObject *name);
-int Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure);
 
+int Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure);
+PyObject *Probabilit_getattro(ProbabilityObject *self, PyObject *name);
 PyObject *persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored));
 extern PyTypeObject ProbabilityType;
 

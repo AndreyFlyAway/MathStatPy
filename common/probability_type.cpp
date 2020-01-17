@@ -42,24 +42,24 @@ Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
     return 0;
 }
 
-//static int
-//Probability_pValGetAttr(ProbabilityObject *self, PyObject *name)
-//{
-//    if (self->x_attr == NULL) {
-//        self->x_attr = PyDict_New();
-//        if (self->x_attr == NULL)
-//            return -1;
-//    }
-//    if (v == NULL) {
-//        int rv = PyDict_DelItemString(self->x_attr, name);
-//        if (rv < 0 && PyErr_ExceptionMatches(PyExc_KeyError))
-//            PyErr_SetString(PyExc_AttributeError,
-//                            "delete non-existing ProbabilityObject attribute");
-//        return rv;
-//    }
-//    else
-//        return PyDict_SetItemString(self->x_attr, name, v);
-//}
+
+PyObject *
+Probabilit_getattro(ProbabilityObject *self, PyObject *name)
+{
+    if (self->x_attr != NULL) {
+        PyObject *v = PyDict_GetItemWithError(self->x_attr, name);
+        if (v != NULL) {
+            Py_INCREF(v);
+            return v;
+        }
+        else if (PyErr_Occurred()) {
+            return NULL;
+        }
+    }
+    return PyObject_GenericGetAttr((PyObject *)self, name);
+}
+
+
 
 int
 Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure)
@@ -67,11 +67,10 @@ Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure)
 
     float _p_val;
 
-    if (self->p_value == NULL) {
+    if (value == NULL) {
         PyErr_SetString(PyExc_TypeError, "Cannot delete the first attribute");
         return -1;
     }
-    int a = 0/0;
     if (!PyFloat_Check(value)) {
         PyErr_SetString(PyExc_TypeError,
                         "The first attribute value must be a float");
@@ -85,7 +84,7 @@ Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure)
         self->p_value = 1.0;
     else if(_p_val < 0.0)
         self->p_value = 0.0;
-
+    self->p_value = 1.0;
     return 0;
 }
 

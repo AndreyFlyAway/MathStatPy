@@ -18,8 +18,8 @@ PyMemberDef Probability_members[] = {
 };
 
 PyGetSetDef ProbabilityObject_getsetters[] = {
-        {"p_value", NULL, (setter) Probability_pValSetAttr,
-                "probabiliry value", NULL},
+        {"p_value", (getter)Probabilit_getattro, (setter) Probability_pValSetAttr,
+                "probabiliry value",},
         {NULL}  /* Sentinel */
 };
 
