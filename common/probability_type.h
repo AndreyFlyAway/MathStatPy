@@ -21,6 +21,7 @@ ProbabilityObject * newProbabilityObject(PyObject *arg);
 PyObject *ProbabilityObject_new(PyObject *self, PyObject *args);
 int probabilityo_setattr(ProbabilityObject *self, const char *name, PyObject *v);
 int Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds);
+PyObject *persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored));
 void ProbabilityObject_dealloc(ProbabilityObject *self);
 extern PyTypeObject ProbabilityType;
 

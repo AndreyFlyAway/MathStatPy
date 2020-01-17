@@ -6,11 +6,10 @@
 /* objects */
 static PyObject *ErrorWrongValueObject;
 
-//static PyMethodDef ProbabilityObject_methods[] = {
-//        {"new",             ProbabilityObject_new,         METH_VARARGS,
-//                PyDoc_STR("new() -> new probabilityo object")},
-//        {NULL,              NULL}           /* sentinel */
-//};
+static PyMethodDef Probability_methods[] = {
+        {"persentage", persentage, METH_NOARGS, PyDoc_STR("Probability value in percentage (int value in range from 0 to 100)")},
+        {NULL, NULL}/* sentinel */
+};
 
 PyMemberDef Probability_members[] = {
         {"p_value", T_FLOAT, offsetof(ProbabilityObject, p_value), 0,
@@ -28,6 +27,7 @@ PyTypeObject ProbabilityType = {
     .tp_new = PyType_GenericNew,
     .tp_init = (initproc) Probability_init,
     .tp_members = Probability_members,
+    .tp_methods = Probability_methods,
     .tp_new = ProbabilityObject_new,
     .tp_dealloc = (destructor) ProbabilityObject_dealloc,
 };

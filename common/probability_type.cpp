@@ -42,6 +42,12 @@ Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
     return 0;
 }
 
+PyObject *
+persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
+{
+    long v = long(self->p_value * 100);
+    return PyLong_FromLong(v);
+}
 
 void
 ProbabilityObject_dealloc(ProbabilityObject *self)
