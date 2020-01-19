@@ -18,7 +18,7 @@ PyMemberDef Probability_members[] = {
 };
 
 PyGetSetDef ProbabilityObject_getsetters[] = {
-        {"p_value", (getter)Probabilit_pValGetAttr, (setter)Probabilit_pValGetAttr,
+        {"p_value", (getter)Probabilit_pValGetAttr, (setter)Probability_pValSetAttr,
                 "probabiliry value", NULL},
         {NULL}  /* Sentinel */
 };
@@ -32,7 +32,7 @@ PyTypeObject ProbabilityType = {
     .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
     .tp_new = PyType_GenericNew,
     .tp_init = (initproc) Probability_init,
-//    .tp_members = Probability_members,
+    .tp_members = 0,
     .tp_methods = Probability_methods,
     .tp_getset = ProbabilityObject_getsetters,
     .tp_new = ProbabilityObject_new,
