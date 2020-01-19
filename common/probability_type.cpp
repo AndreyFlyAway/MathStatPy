@@ -18,55 +18,41 @@ newProbabilityObject(PyObject *arg)
 }
 
 PyObject *
-ProbabilityObject_new(PyObject *self, PyObject *args)
+ProbabilityObject_new(PyTypeObject  *type, PyObject *args, PyObject *kwds)
 {
-    ProbabilityObject *rv;
-
-    if (!PyArg_ParseTuple(args, ":new"))
-        return NULL;
-    rv = newProbabilityObject(args);
-    if (rv == NULL)
-        return NULL;
-    return (PyObject *)rv;
+    ProbabilityObject *self;
+    self = (ProbabilityObject *) type->tp_alloc(type, 0);
+    if (self != NULL) {
+        self->p_value = 0.0;
+    }
+    return (PyObject *) self;;
 }
 
 int
 Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
 {
     static char *kwlist[] = {"p_value", NULL};
-
+    float _p_val;
     if (!PyArg_ParseTupleAndKeywords(args, kwds, "|f", kwlist,
-                                     self->p_value))
+                                     &_p_val))
         return -1;
-
+    self->p_value = _p_val;
     return 0;
 }
 
 
 PyObject *
-Probabilit_getattro(ProbabilityObject *self, PyObject *name)
+Probabilit_pValGetAttr(ProbabilityObject *self,  void *Py_UNUSED(ignored))
 {
-    if (self->x_attr != NULL) {
-        PyObject *v = PyDict_GetItemWithError(self->x_attr, name);
-        if (v != NULL) {
-            Py_INCREF(v);
-            return v;
-        }
-        else if (PyErr_Occurred()) {
-            return NULL;
-        }
-    }
-    return PyObject_GenericGetAttr((PyObject *)self, name);
+    return PyFloat_FromDouble(self->p_value);
 }
 
 
 
 int
-Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure)
+Probability_pValSetAttr(ProbabilityObject *self, PyObject *value)
 {
-
     float _p_val;
-
     if (value == NULL) {
         PyErr_SetString(PyExc_TypeError, "Cannot delete the first attribute");
         return -1;
@@ -76,15 +62,14 @@ Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure)
                         "The first attribute value must be a float");
         return -1;
     }
-
     PyArg_Parse(value, "|f", _p_val);
-    Py_INCREF(value);
+//    Py_INCREF(value);
     _p_val = 1.1;
     if (_p_val > 1.0)
         self->p_value = 1.0;
     else if(_p_val < 0.0)
         self->p_value = 0.0;
-    self->p_value = 1.0;
+    self->p_value = 999.0;
     return 0;
 }
 

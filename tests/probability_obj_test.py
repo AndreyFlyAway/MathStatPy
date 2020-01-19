@@ -9,13 +9,11 @@ def ProbabilityObject_test():
     p = ProbabilityType()
     print(p)
     # p.p_value = 0.785
-    print(p.p_value)
+    # print(p.p_value)
     # print(p.persentage())
-    p.p_value = p.p_value + 1.1
-    # setattr(p, "p_value", 1.2)
+    p.p_value = 1.1
+    setattr(p, "p_value", 1.2)
     print(p.p_value)
-    del p
-    print(p)
 
 if __name__ == "__main__":
     ProbabilityObject_test()

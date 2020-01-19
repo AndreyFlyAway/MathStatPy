@@ -18,15 +18,15 @@ typedef struct {
 } ProbabilityObject;
 
 ProbabilityObject * newProbabilityObject(PyObject *arg);
-PyObject *ProbabilityObject_new(PyObject *self, PyObject *args);
-int Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds);
+PyObject *ProbabilityObject_new(PyTypeObject *type, PyObject *args, PyObject *kwds);
+// int Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds);
 void ProbabilityObject_dealloc(ProbabilityObject *self);
 int Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds);
 //PyObject *Probability_pValSetAttr(ProbabilityObject *self, PyObject *name);
 //PyObject *Probability_pValGetAttr(ProbabilityObject *self, PyObject *name);
 
-int Probability_pValSetAttr(ProbabilityObject *self, PyObject *value, void *closure);
-PyObject *Probabilit_getattro(ProbabilityObject *self, PyObject *name);
+int Probability_pValSetAttr(ProbabilityObject *self, PyObject *value);
+PyObject *Probabilit_pValGetAttr(ProbabilityObject *self,  void *Py_UNUSED(ignored));
 PyObject *persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored));
 extern PyTypeObject ProbabilityType;
 
