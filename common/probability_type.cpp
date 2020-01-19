@@ -25,14 +25,14 @@ ProbabilityObject_new(PyTypeObject  *type, PyObject *args, PyObject *kwds)
     if (self != NULL) {
         self->p_value = 0.0;
     }
-    return (PyObject *) self;;
+    return (PyObject *) self;
 }
 
 int
 Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
 {
     static char *kwlist[] = {"p_value", NULL};
-    float _p_val;
+    double _p_val;
     if (!PyArg_ParseTupleAndKeywords(args, kwds, "|f", kwlist,
                                      &_p_val))
         return -1;
@@ -52,24 +52,18 @@ Probabilit_pValGetAttr(ProbabilityObject *self,  void *Py_UNUSED(ignored))
 int
 Probability_pValSetAttr(ProbabilityObject *self, PyObject *value)
 {
-    float _p_val;
     if (value == NULL) {
-        PyErr_SetString(PyExc_TypeError, "Cannot delete the first attribute");
+        PyErr_SetString(PyExc_TypeError, "Cannot delete the p_value attribute");
         return -1;
     }
-    if (!PyFloat_Check(value)) {
-        PyErr_SetString(PyExc_TypeError,
-                        "The first attribute value must be a float");
-        return -1;
-    }
-    PyArg_Parse(value, "|f", _p_val);
-//    Py_INCREF(value);
+
+    double _p_val = PyFloat_AsDouble(value);
+    Py_INCREF(value);
     _p_val = 1.1;
     if (_p_val > 1.0)
         self->p_value = 1.0;
     else if(_p_val < 0.0)
         self->p_value = 0.0;
-    self->p_value = 999.0;
     return 0;
 }
 
