@@ -11,11 +11,6 @@ static PyMethodDef Probability_methods[] = {
         {NULL, NULL}/* sentinel */
 };
 
-PyMemberDef Probability_members[] = {
-        {"p_value", T_FLOAT, offsetof(ProbabilityObject, p_value), 0,
-                "probability value"},
-        {NULL}  /* Sentinel */
-};
 
 PyGetSetDef ProbabilityObject_getsetters[] = {
         {"p_value", (getter)Probabilit_pValGetAttr, (setter)Probability_pValSetAttr,

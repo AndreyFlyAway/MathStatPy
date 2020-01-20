@@ -47,8 +47,6 @@ Probabilit_pValGetAttr(ProbabilityObject *self,  void *Py_UNUSED(ignored))
     return PyFloat_FromDouble(self->p_value);
 }
 
-
-
 int
 Probability_pValSetAttr(ProbabilityObject *self, PyObject *value)
 {
@@ -59,11 +57,21 @@ Probability_pValSetAttr(ProbabilityObject *self, PyObject *value)
 
     double _p_val = PyFloat_AsDouble(value);
     Py_INCREF(value);
-    _p_val = 1.1;
     if (_p_val > 1.0)
+    {
         self->p_value = 1.0;
+    }
     else if(_p_val < 0.0)
+    {
         self->p_value = 0.0;
+        PyErr_SetString(PyExc_TypeError, "Probability value cant be negative!");
+        return -1;
+    }
+    else
+    {
+        self->p_value = _p_val;
+    }
+
     return 0;
 }
 
