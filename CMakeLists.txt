@@ -14,6 +14,8 @@ include_directories(common)
 add_library(MathStatPyLib SHARED
 			common/combinatorics.cpp
             common/combinatorics.h
+            common/probability_type.cpp
+            common/probability_type.h
 			MathStatPy.c)
 
 include_directories(/usr/local/include/python3.8/)

@@ -4,10 +4,9 @@
 #include "structmember.h"
 
 /* objects */
-static PyObject *ErrorWrongValueObject;
 
 static PyMethodDef Probability_methods[] = {
-        {"persentage", persentage, METH_NOARGS, PyDoc_STR("Probability value in percentage (int value in range from 0 to 100)")},
+        {"persentage", (PyCFunction)persentage, METH_NOARGS, PyDoc_STR("Probability value in percentage (int value in range from 0 to 100)")},
         {NULL, NULL}/* sentinel */
 };
 
@@ -35,28 +34,13 @@ PyTypeObject ProbabilityType = {
 };
 
 /* methods */
-// TODO: make limits for input values of combinatoric functions
-// TODO: change type of input and output values to usigned
+
 
 PyDoc_STRVAR(MathStatPy_permutation_doc,
 "P(N)\n\
 \n\
 Return amount of permutation for N objects. N must be rather 0");
 
-static PyObject *
-Permutation(PyObject *self, PyObject *args)
-{
-    long int N, res;
-    if (!PyArg_ParseTuple(args, "l", &N))
-        return NULL;
-    if (N < 0) {
-        PyErr_SetString(ErrorWrongValueObject, "N cant be less then 0!");
-        return NULL;
-    }
-    res = _factorial(N);
-    
-    return PyLong_FromLong(res);
-}
 
 PyDoc_STRVAR(MathStatPy_variations_doc,
 "A(m,n)\n\
@@ -64,55 +48,12 @@ PyDoc_STRVAR(MathStatPy_variations_doc,
 Return amount of variations without repetitions for m of n objects."
 "Value m cant be raher n. Both m and n must be rather 0.");
 
-static PyObject *
-Variations(PyObject *self, PyObject *args)
-{
-    long int M, N, res;
-    if (!PyArg_ParseTuple(args, "ll", &M, &N))
-        return NULL;
-    if ((M < 0) || (N < 0)){
-        PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
-        return NULL;
-    }
-    if (M > N) {
-        PyErr_SetString(ErrorWrongValueObject, "M cant be rather then N!");
-        return NULL;
-    }
-    res = _variations(M, N);
-
-    return PyLong_FromLong(res);
-}
-
 
 PyDoc_STRVAR(MathStatPy_combinations_doc,
              "C(m,n)\n\
 \n\
 Return combinations of variations without repetitions for m of n objects."
 "Value m cant be raher n. Both m and n must be rather 0.");
-
-static PyObject *
-Combinations(PyObject *self, PyObject *args)
-{
-    long int M, N, res;
-    if (!PyArg_ParseTuple(args, "ll", &M, &N))
-        return NULL;
-    if ((M < 0) || (N < 0)){
-        PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
-        return NULL;
-    }
-    if ((M < 0) || (N < 0)){
-        PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
-        return NULL;
-    }
-    if (M > N) {
-        PyErr_SetString(ErrorWrongValueObject, "M cant be rather then N!");
-        return NULL;
-    }
-    res = _combinations(M, N);
-
-    return PyLong_FromLong(res);
-
-}
 
 
 static PyMethodDef MathStatPy_methods[] = {
