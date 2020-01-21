@@ -36,7 +36,7 @@ long int _combinations(long int m, long int n)
 }
 
 // TODO: make limits for input values of combinatoric functions
-// TODO: change type of input and output values to usigned
+// TODO: change type of input and output values to unsigned
 
 
 PyObject *

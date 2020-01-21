@@ -36,33 +36,16 @@ PyTypeObject ProbabilityType = {
 /* methods */
 
 
-PyDoc_STRVAR(MathStatPy_permutation_doc,
-"P(N)\n\
-\n\
-Return amount of permutation for N objects. N must be rather 0");
-
-
-PyDoc_STRVAR(MathStatPy_variations_doc,
-"A(m,n)\n\
-\n\
-Return amount of variations without repetitions for m of n objects."
-"Value m cant be raher n. Both m and n must be rather 0.");
-
-
-PyDoc_STRVAR(MathStatPy_combinations_doc,
-             "C(m,n)\n\
-\n\
-Return combinations of variations without repetitions for m of n objects."
-"Value m cant be raher n. Both m and n must be rather 0.");
+//PyDoc_STRVAR(MathStatPy_permutation_doc,
+//"P(N)\n\
+//\n\
+//Return amount of permutation for N objects. N must be rather 0");
 
 
 static PyMethodDef MathStatPy_methods[] = {
-    {"P",             (PyCFunction)Permutation,          METH_VARARGS,
-            MathStatPy_permutation_doc},
-    {"A",             (PyCFunction)Variations,           METH_VARARGS,
-            MathStatPy_variations_doc},
-    {"C",             (PyCFunction)Combinations,         METH_VARARGS,
-            MathStatPy_combinations_doc},
+    COMBINATORICS_PERMUTATION_FNC
+    COMBINATORICS_VARIATIONS_FNC
+    COMBINATORICS_COMBINATIONS_FNC
     {NULL,              NULL}           /* sentinel */
 };
 
@@ -73,21 +56,6 @@ PyDoc_STRVAR(module_doc,
 static int
 MathStatPy_exec(PyObject *m)
 {
-    /* Slot initialization is subject to the rules of initializing globals.
-       C99 requires the initializers to be "address constants".  Function
-       designators like 'PyType_GenericNew', with implicit conversion to
-       a pointer, are valid C99 address constants.
-
-       However, the unary '&' operator applied to a non-static variable
-       like 'PyBaseObject_Type' is not required to produce an address
-       constant.  Compilers may support this (gcc does), MSVC does not.
-
-       Both compilers are strictly standard conforming in this particular
-       behavior.
-    */
-    /* Finalize the type object including setting type of the new type
-     * object; doing it here is required for portability, too. */
-
     ProbabilityType.tp_base = &PyBaseObject_Type;
 
     /* Add some symbolic constants to the module */

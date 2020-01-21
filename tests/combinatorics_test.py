@@ -1,5 +1,6 @@
 import MathStatPy
 import sys
+# TODO: make more complete test
 def Permutation_test():
     """
     Permutation test
@@ -71,6 +72,6 @@ def Combinations_test():
     print(MathStatPy.C(3, 5))
 
 if __name__ == "__main__":
-    # Permutation_test()
-    # Variations_test()
+    Permutation_test()
+    Variations_test()
     Combinations_test()
