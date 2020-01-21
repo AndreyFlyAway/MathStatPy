@@ -6,7 +6,8 @@
 /* objects */
 
 static PyMethodDef Probability_methods[] = {
-        {"persentage", (PyCFunction)persentage, METH_NOARGS, PyDoc_STR("Probability value in percentage (int value in range from 0 to 100)")},
+        {"persentage", (PyCFunction)persentage, METH_CLASS, PyDoc_STR("Probability value in percentage (int value in range from 0 to 100)")},
+//        {"__radd__", (PyCFunction)Probabilit__add__, METH_CLASS, PyDoc_STR("__add__")},
         {NULL, NULL}/* sentinel */
 };
 
@@ -15,6 +16,20 @@ PyGetSetDef ProbabilityObject_getsetters[] = {
         {"p_value", (getter)Probabilit_pValGetAttr, (setter)Probability_pValSetAttr,
                 "probabiliry value", NULL},
         {NULL}  /* Sentinel */
+};
+
+static PyNumberMethods value_as_number = {
+        delta_add,                                  /* nb_add */
+        0,                                  /* nb_subtract */
+        0,                                  /* nb_multiply */
+        0,                                  /* nb_remainder */
+        0,                                  /* nb_divmod */
+        0,                                  /* nb_power */
+        0,                                  /* nb_negative */
+        0,                                  /* nb_positive */
+        0,                                  /* nb_absolute */
+        0,                /* nb_bool */
+        0,                                  /* nb_invert */
 };
 
 PyTypeObject ProbabilityType = {
@@ -31,6 +46,7 @@ PyTypeObject ProbabilityType = {
     .tp_getset = ProbabilityObject_getsetters,
     .tp_new = ProbabilityObject_new,
     .tp_dealloc = (destructor) ProbabilityObject_dealloc,
+    .tp_as_number = &value_as_number,
 };
 
 /* methods */

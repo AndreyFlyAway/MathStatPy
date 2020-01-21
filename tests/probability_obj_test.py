@@ -74,6 +74,20 @@ def negative_value_1_t():
     print(TEST_OK_FORMAT.format(test_name))
     return 0
 
+def adding_value_t():
+    """
+    adding value
+    :return:
+    """
+    p = ProbabilityType()
+    test_name = "adding value"
+    # print(test_name)
+    p = ProbabilityType()
+    test_val = 1.1
+    v = p + test_val
+    print(v)
+
+
 def ProbabilityObject_test():
     """
     ProbabilityObject test
@@ -83,6 +97,17 @@ def ProbabilityObject_test():
     more_than_1_t()
     less_than_0_t()
     negative_value_1_t()
+
+def ProbabilityObject_test():
+    """
+    ProbabilityObject test
+    :return:
+    """
+    norm_val_t()
+    more_than_1_t()
+    less_than_0_t()
+    negative_value_1_t()
+    adding_value_t()
 
 
 if __name__ == "__main__":

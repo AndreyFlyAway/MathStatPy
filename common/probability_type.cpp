@@ -82,8 +82,11 @@ persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
     return PyLong_FromLong(v);
 }
 
-
-
+PyObject *
+delta_add(PyObject *left, PyObject *right)
+{
+    return PyFloat_FromDouble(1.0);
+}
 void
 ProbabilityObject_dealloc(ProbabilityObject *self)
 {
