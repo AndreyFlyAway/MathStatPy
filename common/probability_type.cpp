@@ -40,7 +40,21 @@ Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
     if (!PyArg_ParseTupleAndKeywords(args, kwds, "|f", kwlist,
                                      &_p_val))
         return -1;
-    self->p_value = _p_val;
+    if (_p_val > 1.0)
+    {
+        self->p_value = 1.0;
+    }
+    else if(_p_val < 0.0)
+    {
+        self->p_value = 0.0;
+        PyErr_SetString(PyExc_TypeError, "Probability value cant be negative!");
+        return -1;
+    }
+    else
+    {
+        self->p_value = _p_val;
+    }
+
     return 0;
 }
 
@@ -89,14 +103,24 @@ persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
 PyObject *
 Probabilit__add__(PyObject *left, PyObject *right)
 {
-    double res;
-    if (PyObj_Check(left) && PyObj_Check(right))
+    double _v_left, _v_right, res;
+//    PyObject *result = Py_NotImplemented;
+    if (PyObj_Check(left))
     {
-        res = 1.0;
+        _v_left = ((ProbabilityObject *)left)->p_value;
     }
     else{
-        res = 0.0;
+        _v_left = PyFloat_AsDouble(left);
     }
+    if (PyObj_Check(right))
+    {
+        _v_right = ((ProbabilityObject *)right)->p_value;
+    }
+    else{
+        _v_right = PyFloat_AsDouble(right);
+    }
+    res = _v_right + _v_left;
+
     return PyFloat_FromDouble(res);
 }
 void

@@ -7,7 +7,6 @@
 
 static PyMethodDef Probability_methods[] = {
         {"persentage", (PyCFunction)persentage, METH_CLASS, PyDoc_STR("Probability value in percentage (int value in range from 0 to 100)")},
-//        {"__radd__", (PyCFunction)Probabilit__add__, METH_CLASS, PyDoc_STR("__add__")},
         {NULL, NULL}/* sentinel */
 };
 
