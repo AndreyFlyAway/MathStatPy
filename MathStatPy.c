@@ -19,7 +19,7 @@ PyGetSetDef ProbabilityObject_getsetters[] = {
 };
 
 static PyNumberMethods value_as_number = {
-        delta_add,                                  /* nb_add */
+        Probabilit__add__,                                  /* nb_add */
         0,                                  /* nb_subtract */
         0,                                  /* nb_multiply */
         0,                                  /* nb_remainder */
@@ -50,13 +50,6 @@ PyTypeObject ProbabilityType = {
 };
 
 /* methods */
-
-
-//PyDoc_STRVAR(MathStatPy_permutation_doc,
-//"P(N)\n\
-//\n\
-//Return amount of permutation for N objects. N must be rather 0");
-
 
 static PyMethodDef MathStatPy_methods[] = {
     COMBINATORICS_PERMUTATION_FNC

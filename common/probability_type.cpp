@@ -5,6 +5,10 @@
 // */
 #include "probability_type.h"
 
+#define PyObj_Check(op) PyObject_TypeCheck(op, &ProbabilityType)
+//#define new_probability_obj(p_val)  \
+//    new_probability_obj(p_val, &ProbabilityType)
+
 ProbabilityObject *
 newProbabilityObject(PyObject *arg)
 {
@@ -83,9 +87,17 @@ persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
 }
 
 PyObject *
-delta_add(PyObject *left, PyObject *right)
+Probabilit__add__(PyObject *left, PyObject *right)
 {
-    return PyFloat_FromDouble(1.0);
+    double res;
+    if (PyObj_Check(left) && PyObj_Check(right))
+    {
+        res = 1.0;
+    }
+    else{
+        res = 0.0;
+    }
+    return PyFloat_FromDouble(res);
 }
 void
 ProbabilityObject_dealloc(ProbabilityObject *self)

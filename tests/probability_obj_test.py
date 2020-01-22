@@ -80,11 +80,14 @@ def adding_value_t():
     :return:
     """
     p = ProbabilityType()
+    b = ProbabilityType()
     test_name = "adding value"
     # print(test_name)
     p = ProbabilityType()
     test_val = 1.1
     v = p + test_val
+    print(v)
+    v = p + b
     print(v)
 
 
