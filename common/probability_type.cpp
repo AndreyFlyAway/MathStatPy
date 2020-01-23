@@ -6,19 +6,21 @@
 #include "probability_type.h"
 
 #define PyObj_Check(op) PyObject_TypeCheck(op, &ProbabilityType)
-//#define new_probability_obj(p_val)  \
-//    new_probability_obj(p_val, &ProbabilityType)
+#define new_probability_obj(p_val)  \
+    new_probability_ext(p_val, &ProbabilityType)
+#define check_p_val(p_val) { ((double )p_val > 1.0) ? 1.0 : p_val }
 
-ProbabilityObject *
-newProbabilityObject(PyObject *arg)
+static PyObject *
+new_probability_ext(float _p_val,
+                   PyTypeObject *type)
 {
     ProbabilityObject *self;
-    self = PyObject_New(ProbabilityObject, &ProbabilityType);
-    if (self == NULL)
-        return NULL;
-    self->x_attr = NULL;
-    self->p_value = 0;
-    return self;
+
+    self = (ProbabilityObject *) (type->tp_alloc(type, 0));
+    if (self != NULL) {
+        self->p_value = _p_val;
+    }
+    return (PyObject *) self;
 }
 
 PyObject *
@@ -75,19 +77,14 @@ Probability_pValSetAttr(ProbabilityObject *self, PyObject *value)
 
     double _p_val = PyFloat_AsDouble(value);
     Py_INCREF(value);
-    if (_p_val > 1.0)
-    {
-        self->p_value = 1.0;
-    }
-    else if(_p_val < 0.0)
+    if(_p_val < 0.0)
     {
         self->p_value = 0.0;
         PyErr_SetString(PyExc_TypeError, "Probability value cant be negative!");
         return -1;
     }
-    else
-    {
-        self->p_value = _p_val;
+    else{
+        self->p_value = check_p_val(_p_val);
     }
 
     return 0;
@@ -104,7 +101,7 @@ PyObject *
 Probabilit__add__(PyObject *left, PyObject *right)
 {
     double _v_left, _v_right, res;
-//    PyObject *result = Py_NotImplemented;
+    PyObject *result = Py_NotImplemented;
     if (PyObj_Check(left))
     {
         _v_left = ((ProbabilityObject *)left)->p_value;
@@ -119,9 +116,20 @@ Probabilit__add__(PyObject *left, PyObject *right)
     else{
         _v_right = PyFloat_AsDouble(right);
     }
-    res = _v_right + _v_left;
+    if ((_v_right < 0.0) || (_v_left < 0.0))
+    {
+        PyErr_SetString(PyExc_TypeError, "Probablity value cant be neagative!");
+    }
+    else
+    {
+        res = check_p_val(_v_right + _v_left);
+        result = new_probability_obj(res);
+    }
 
-    return PyFloat_FromDouble(res);
+    if (result == Py_NotImplemented)
+        Py_INCREF(result);
+
+    return result;
 }
 void
 ProbabilityObject_dealloc(ProbabilityObject *self)
