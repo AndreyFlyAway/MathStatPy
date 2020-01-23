@@ -135,7 +135,7 @@ Probabilit_subtract(PyObject *left, PyObject *right)
     }
     else
     {
-        res = check_p_val(_v_right - _v_left);
+        res = check_p_val(_v_left - _v_right);
         if (res < 0.0)
         {
             PyErr_SetString(PyExc_TypeError, "Result of subtract operation cant be negative!");
