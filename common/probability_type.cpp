@@ -98,24 +98,13 @@ persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
 }
 
 PyObject *
-Probabilit__add__(PyObject *left, PyObject *right)
+Probabilit_add(PyObject *left, PyObject *right)
 {
     double _v_left, _v_right, res;
     PyObject *result = Py_NotImplemented;
-    if (PyObj_Check(left))
-    {
-        _v_left = ((ProbabilityObject *)left)->p_value;
-    }
-    else{
-        _v_left = PyFloat_AsDouble(left);
-    }
-    if (PyObj_Check(right))
-    {
-        _v_right = ((ProbabilityObject *)right)->p_value;
-    }
-    else{
-        _v_right = PyFloat_AsDouble(right);
-    }
+
+    p_values_check (left, right, &_v_left, &_v_right);
+
     if ((_v_right < 0.0) || (_v_left < 0.0))
     {
         PyErr_SetString(PyExc_TypeError, "Probablity value cant be neagative!");
@@ -131,6 +120,54 @@ Probabilit__add__(PyObject *left, PyObject *right)
 
     return result;
 }
+
+PyObject *
+Probabilit_subtract(PyObject *left, PyObject *right)
+{
+    double _v_left, _v_right, res;
+    PyObject *result = Py_NotImplemented;
+
+    p_values_check (left, right, &_v_left, &_v_right);
+
+    if ((_v_right < 0.0) || (_v_left < 0.0))
+    {
+        PyErr_SetString(PyExc_TypeError, "Probablity value cant be negative!");
+    }
+    else
+    {
+        res = check_p_val(_v_right - _v_left);
+        if (res < 0.0)
+        {
+            PyErr_SetString(PyExc_TypeError, "Result of subtract operation cant be negative!");
+        }
+        result = new_probability_obj(res);
+    }
+
+    if (result == Py_NotImplemented)
+        Py_INCREF(result);
+
+    return result;
+}
+
+
+void p_values_check(PyObject *left, PyObject *right, double *v_left, double *v_rigt)
+{
+    if (PyObj_Check(left))
+    {
+        *v_left = ((ProbabilityObject *)left)->p_value;
+    }
+    else{
+        *v_left = PyFloat_AsDouble(left);
+    }
+    if (PyObj_Check(right))
+    {
+        *v_rigt = ((ProbabilityObject *)right)->p_value;
+    }
+    else{
+        *v_rigt = PyFloat_AsDouble(right);
+    }
+}
+
 void
 ProbabilityObject_dealloc(ProbabilityObject *self)
 {
