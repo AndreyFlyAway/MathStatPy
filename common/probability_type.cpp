@@ -10,8 +10,10 @@
     new_probability_ext(p_val, &ProbabilityType)
 #define check_p_val(p_val) { ((double )p_val > 1.0) ? 1.0 : p_val }
 
-double sum_o(double v_l, double v_r) { return v_l + v_r;}
-double subtract(double v_l, double v_r) { return v_r - v_l;}
+static double sum_o(double v_l, double v_r) { return v_l + v_r;}
+static double subtract_o(double v_l, double v_r) { return v_r - v_l;}
+static double multiply_o(double v_l, double v_r) { return v_r * v_l;}
+//static double remainder_o(double v_l, double v_r) { return v_r % v_l;}
 
 static PyObject *
 new_probability_ext(double _p_val,
@@ -93,6 +95,12 @@ Probability_pValSetAttr(ProbabilityObject *self, PyObject *value)
     return 0;
 }
 
+void
+ProbabilityObject_dealloc(ProbabilityObject *self)
+{
+    Py_TYPE(self)->tp_free((PyObject *) self);
+}
+
 PyObject *
 persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
 {
@@ -155,11 +163,17 @@ Probabilit_add(PyObject *left, PyObject *right)
 PyObject *
 Probabilit_subtract(PyObject *left, PyObject *right)
 {
-    return num_operation(left, right, subtract);
+    return num_operation(left, right, subtract_o);
 }
 
-void
-ProbabilityObject_dealloc(ProbabilityObject *self)
+PyObject *
+Probabilit_multiply(PyObject *left, PyObject *right)
 {
-    Py_TYPE(self)->tp_free((PyObject *) self);
+    return num_operation(left, right, multiply_o);
+}
+
+PyObject *
+Probabilit_remainder(PyObject *left, PyObject *right)
+{
+    return num_operation(right, left, fmod);
 }

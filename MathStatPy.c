@@ -20,8 +20,8 @@ PyGetSetDef ProbabilityObject_getsetters[] = {
 static PyNumberMethods value_as_number = {
         Probabilit_add,                                  /* nb_add */
         Probabilit_subtract,                                  /* nb_subtract */
-        0,                                  /* nb_multiply */
-        0,                                  /* nb_remainder */
+        Probabilit_multiply,                                  /* nb_multiply */
+        Probabilit_remainder,                                  /* nb_remainder */
         0,                                  /* nb_divmod */
         0,                                  /* nb_power */
         0,                                  /* nb_negative */
