@@ -10,8 +10,11 @@
     new_probability_ext(p_val, &ProbabilityType)
 #define check_p_val(p_val) { ((double )p_val > 1.0) ? 1.0 : p_val }
 
+double sum_o(double v_l, double v_r) { return v_l + v_r;}
+double subtract(double v_l, double v_r) { return v_r - v_l;}
+
 static PyObject *
-new_probability_ext(float _p_val,
+new_probability_ext(double _p_val,
                    PyTypeObject *type)
 {
     ProbabilityObject *self;
@@ -98,7 +101,7 @@ persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
 }
 
 PyObject *
-Probabilit_add(PyObject *left, PyObject *right)
+num_operation(PyObject *left, PyObject *right, double (*operation)(double v_l, double v_r))
 {
     double _v_left, _v_right, res;
     PyObject *result = Py_NotImplemented;
@@ -107,38 +110,14 @@ Probabilit_add(PyObject *left, PyObject *right)
 
     if ((_v_right < 0.0) || (_v_left < 0.0))
     {
-        PyErr_SetString(PyExc_TypeError, "Probablity value cant be neagative!");
+        PyErr_SetString(PyExc_TypeError, "Probability value cant be negative!");
     }
     else
     {
-        res = check_p_val(_v_right + _v_left);
-        result = new_probability_obj(res);
-    }
-
-    if (result == Py_NotImplemented)
-        Py_INCREF(result);
-
-    return result;
-}
-
-PyObject *
-Probabilit_subtract(PyObject *left, PyObject *right)
-{
-    double _v_left, _v_right, res;
-    PyObject *result = Py_NotImplemented;
-
-    p_values_check (left, right, &_v_left, &_v_right);
-
-    if ((_v_right < 0.0) || (_v_left < 0.0))
-    {
-        PyErr_SetString(PyExc_TypeError, "Probablity value cant be negative!");
-    }
-    else
-    {
-        res = check_p_val(_v_left - _v_right);
+        res = check_p_val(operation(_v_right, _v_left));
         if (res < 0.0)
         {
-            PyErr_SetString(PyExc_TypeError, "Result of subtract operation cant be negative!");
+            PyErr_SetString(PyExc_TypeError, "Result of numeric operation cant be negative!");
         }
         result = new_probability_obj(res);
     }
@@ -148,7 +127,6 @@ Probabilit_subtract(PyObject *left, PyObject *right)
 
     return result;
 }
-
 
 void p_values_check(PyObject *left, PyObject *right, double *v_left, double *v_rigt)
 {
@@ -166,6 +144,18 @@ void p_values_check(PyObject *left, PyObject *right, double *v_left, double *v_r
     else{
         *v_rigt = PyFloat_AsDouble(right);
     }
+}
+
+PyObject *
+Probabilit_add(PyObject *left, PyObject *right)
+{
+    return num_operation(left, right, sum_o);
+}
+
+PyObject *
+Probabilit_subtract(PyObject *left, PyObject *right)
+{
+    return num_operation(left, right, subtract);
 }
 
 void

@@ -129,10 +129,14 @@ def adding_value_t():
     p.p_value = 0.2
     b.p_value = 0.3
     test_val = 1.1
-    v = p.p_value + test_val
-    print(v)
     v = p + b
-    print(v)
+    print(v.p_value)
+    v = p + 0.1
+    print(v.p_value)
+    v = b - p
+    print(v.p_value)
+    v = p - 0.1
+    print(v.p_value)
 
 def ProbabilityObject_test():
     """
