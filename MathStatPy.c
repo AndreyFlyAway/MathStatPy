@@ -23,12 +23,12 @@ static PyNumberMethods value_as_number = {
         Probabilit_multiply,                                  /* nb_multiply */
         Probabilit_remainder,                                  /* nb_remainder */
         0,                                  /* nb_divmod */
-        0,                                  /* nb_power */
+        Probabilit_pow,                                  /* nb_power */
         0,                                  /* nb_negative */
         0,                                  /* nb_positive */
         0,                                  /* nb_absolute */
         0,                /* nb_bool */
-        0,                                  /* nb_invert */
+        Probabilit_negative,                                  /* nb_invert */
 };
 
 PyTypeObject ProbabilityType = {

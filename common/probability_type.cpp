@@ -11,9 +11,16 @@
 #define check_p_val(p_val) { ((double )p_val > 1.0) ? 1.0 : p_val }
 
 static double sum_o(double v_l, double v_r) { return v_l + v_r;}
-static double subtract_o(double v_l, double v_r) { return v_r - v_l;}
+static double subtract_o(double v_l, double v_r) { return v_l - v_r;}
 static double multiply_o(double v_l, double v_r) { return v_r * v_l;}
-//static double remainder_o(double v_l, double v_r) { return v_r % v_l;}
+
+//static double pow_i_o(double val, double n)
+//{
+//    if (n == 0)
+//        return 1;
+//    else
+//        return pow_i_o(double val, n -1);
+//}
 
 static PyObject *
 new_probability_ext(double _p_val,
@@ -44,8 +51,7 @@ Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
 {
     static char *kwlist[] = {"p_value", NULL};
     double _p_val;
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|f", kwlist,
-                                     &_p_val))
+    if (!PyArg_ParseTuple(args, "d", &_p_val))
         return -1;
     if (_p_val > 1.0)
     {
@@ -53,7 +59,6 @@ Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
     }
     else if(_p_val < 0.0)
     {
-        self->p_value = 0.0;
         PyErr_SetString(PyExc_TypeError, "Probability value cant be negative!");
         return -1;
     }
@@ -163,7 +168,7 @@ Probabilit_add(PyObject *left, PyObject *right)
 PyObject *
 Probabilit_subtract(PyObject *left, PyObject *right)
 {
-    return num_operation(left, right, subtract_o);
+    return num_operation(right, left, subtract_o);
 }
 
 PyObject *
@@ -176,4 +181,17 @@ PyObject *
 Probabilit_remainder(PyObject *left, PyObject *right)
 {
     return num_operation(right, left, fmod);
+}
+
+PyObject *
+Probabilit_pow(PyObject *n, PyObject *value)
+{
+    return num_operation(n, value, pow);
+}
+
+PyObject *
+Probabilit_negative(PyObject *val)
+{
+    PyObject *result = new_probability_obj(1.0 - ((ProbabilityObject *)val)->p_value);
+    return result;
 }
