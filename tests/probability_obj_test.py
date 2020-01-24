@@ -17,40 +17,41 @@ def init_del_obj_t():
         ["init 0.2", ProbabilityType(0.2), 0.2],
         ["init 1.0", ProbabilityType(1.0), 1.0],
         ["init 2.0", ProbabilityType(2.0), 1.0],
+        ["init 1", ProbabilityType(1), 1.0],
+        ["init 100000", ProbabilityType(100000), 1.0],
         ]
+    false_init_tests = [
+        ["init 0.0", -0.0],
+        ["init 0.1", -210.1],
+        ["init 0.2", -13],
+        ["init 1.0", "kek str"],
+        ["init 2.0", True],
+        ]
+
     for test in init_tests:
         if test[1].p_value != test[2]:
             print(TEST_ERR_FORMAT.format(test[0], test[1].p_value))
             test_faild = True
+
+    for test in false_init_tests:
+        try:
+            p = ProbabilityType(init_tests[1])
+            test_faild = True
+        except TypeError:
+            pass
+        except:
+            print(TEST_ERR_FORMAT.format(test_name, init_tests[1]))
+            test_faild = True
+
     if (not(test_faild)):
         print (TEST_OK_FORMAT.format(test_name))
-
-def negative_value_1_t():
-    """
-    negative value test
-    :return:
-    """
-    p = ProbabilityType()
-    test_name = "negative value"
-    # print(test_name)
-    try:
-        test_val = -123.12
-        p.p_value = test_val
-    except TypeError:
-        # print(sys.exc_info())
-        pass
-    except:
-        print(TEST_ERR_FORMAT.format(test_name, p.p_value))
-        return -1
-    print(TEST_OK_FORMAT.format(test_name))
-    return 0
 
 def add_t():
     """
     adding value
     :return:
     """
-    test_name = "init del object test"
+    test_name = "adding value test"
     test_faild = False
     adding_tests = [
                   # rvalue
@@ -68,6 +69,7 @@ def add_t():
                   ["adding lvalue 5", 1.0, ProbabilityType(0.0), 1.0],
                   ["adding lvalue 6", 2.0, ProbabilityType(0.3), 1.0],
                 ]
+
     for test in adding_tests:
         r = test[1] + test[2]
         if r.p_value != test[3]:
@@ -84,7 +86,6 @@ def ProbabilityObject_test():
     :return:
     """
     init_del_obj_t()
-    # less_than_0_t()
     add_t()
 
 if __name__ == "__main__":
