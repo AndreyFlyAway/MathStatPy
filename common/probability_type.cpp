@@ -4,6 +4,7 @@
 // * Created  on 15.01.20.
 // */
 #include "probability_type.h"
+#include <math.h>
 
 #define PyObj_Check(op) PyObject_TypeCheck(op, &ProbabilityType)
 #define new_probability_obj(p_val)  \
@@ -176,12 +177,6 @@ Probabilit_divide(PyObject *left, PyObject *right)
 
 PyObject *
 Probabilit_remainder(PyObject *left, PyObject *right)
-{
-    return num_operation(left, right, fmod);
-}
-
-PyObject *
-Probabilit_divmod(PyObject *left, PyObject *right)
 {
     return num_operation(left, right, fmod);
 }

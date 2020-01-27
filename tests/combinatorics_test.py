@@ -1,5 +1,6 @@
 import MathStatPy
 import sys
+import math
 # TODO: make more complete test
 
 TEST_ERR_FORMAT = "Test {0} failed. Result: {1} instead {2}"
@@ -10,57 +11,53 @@ def Permutation_test():
     Permutation test
     :return:
     """
-    print("Permutation test.")
-    #print(help(MathStatPy.P))
-    for i in range(0, 10):
-        print(MathStatPy.P(i))
-    print("Permutation out of range test.")
-    try:
-        print(MathStatPy.P(-1))
-    except:
-        print(sys.exc_info())
-    try:
-        print(MathStatPy.P(-1))
-    except:
-        print(sys.exc_info())
-    try:
-        print(MathStatPy.P(-2))
-    except:
-        print(sys.exc_info())
-    try:
-        print(MathStatPy.P(1.1))
-    except:
-        print(sys.exc_info())
+    test_name = "Permutation value"
+    test_faild = False
+    adding_tests = [
+        ["P(0)", 0, math.factorial(0)],
+        ["P(1)", 1, math.factorial(1)],
+        ["P(2)", 2, math.factorial(2)],
+        ["P(3)", 3, math.factorial(3)],
+        ["P(4)", 4, math.factorial(4)],
+        ["P(5)", 5, math.factorial(5)],
+        ["P(6)", 6, math.factorial(6)],
+        ["P(7)", 7, math.factorial(7)],
+        ["P(8)", 8, math.factorial(8)],
+        ["P(9)", 9, math.factorial(9)],
+        ["P(10)", 10, math.factorial(10)],
+    ]
+
+    for test in adding_tests:
+        r = MathStatPy.P(test[1])
+        if r != test[2]:
+            print(TEST_ERR_FORMAT.format(test[0], r,  test[2]))
+            test_faild = True
+
+    if (not(test_faild)):
+        print (TEST_OK_FORMAT.format(test_name))
 
 def Variations_test():
     """
-    Permutation test
+    Variations test
     :return:
     """
-    print("Variations test.")
-    print(MathStatPy.A(1, 2))
-    print(MathStatPy.A(1, 4))
-    print(MathStatPy.A(2, 4))
-    print(MathStatPy.A(3, 4))
-    print(MathStatPy.A(2, 5))
-    print(MathStatPy.A(3, 5))
-    print("Variations out of range test.")
-    try:
-        print(MathStatPy.A(-1))
-    except:
-        print(sys.exc_info())
-    try:
-        print(MathStatPy.A(-1, 2))
-    except:
-        print(sys.exc_info())
-    try:
-        print(MathStatPy.A(2, -3))
-    except:
-        print(sys.exc_info())
-    try:
-        print(MathStatPy.A(25, 13))
-    except:
-        print(sys.exc_info())
+    test_name = "Variations value"
+    test_faild = False
+    adding_tests = [
+        ["A(1, 1)", 1, 1, 1],
+        ["A(1, 2)", 1, 2, 2],
+        ["A(2, 3)", 2, 3, 6],
+        ["A(3, 5)", 3, 5, 60],
+    ]
+
+    for test in adding_tests:
+        r = MathStatPy.A(test[1], test[2])
+        if r != test[3]:
+            print(TEST_ERR_FORMAT.format(test[0], r,  test[3]))
+            test_faild = True
+
+    if (not(test_faild)):
+        print (TEST_OK_FORMAT.format(test_name))
 
 def Combinations_test():
     """
@@ -70,7 +67,6 @@ def Combinations_test():
     test_name = "Combinations value"
     test_faild = False
     adding_tests = [
-                  # rvalue
                   ["C(1,1)", 1, 1, 1],
                   ["C(1,2)", 1, 2, 2],
                   ["C(1,3)", 1, 3, 3],
@@ -97,6 +93,6 @@ def Combinations_test():
         print (TEST_OK_FORMAT.format(test_name))
 
 if __name__ == "__main__":
-    # Permutation_test()
-    # Variations_test()
+    Permutation_test()
+    Variations_test()
     Combinations_test()
