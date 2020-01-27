@@ -135,6 +135,7 @@ def multiply_t():
     test_faild = False
     multiply_tests = [
         # rvalue
+        ["multiply rvalue 0", ProbabilityType(0.0), 0.1, 0.0 * 0.1],
         ["multiply rvalue 1", ProbabilityType(1.0), 0.1, 1.0 * 0.1],
         ["multiply rvalue 2", ProbabilityType(0.0), 0.1, 0.0 * 0.1],
         ["multiply rvalue 3", ProbabilityType(0.3), 0.2, 0.3 * 0.2],
@@ -170,7 +171,7 @@ def div_t():
     """
     test_name = "div operation"
     test_faild = False
-    multiply_tests = [
+    div_tests = [
         # rvalue
         ["div rvalue 1", ProbabilityType(0.0), 0.1, 0.0/0.1],
         ["div rvalue 2", ProbabilityType(0.1), 0.1, 0.1/0.1],
@@ -178,20 +179,20 @@ def div_t():
         ["div rvalue 4", ProbabilityType(0.3), 0.3, 0.3/0.3],
         ["div rvalue 5", ProbabilityType(0.3), 0.1, 1.0],
         # lvalue
-        ["div lvalue 1", 0.1, ProbabilityType(0.0), 0.0/0.1],
-        ["div lvalue 2", 0.1, ProbabilityType(0.1), 0.1/0.1],
-        ["div lvalue 3", 0.3, ProbabilityType(0.1), 0.1/0.3],
-        ["div lvalue 4", 0.3, ProbabilityType(0.3), 0.3/0.3],
-        ["div lvalue 5", 0.1, ProbabilityType(0.3), 1.0],
+        ["div rvalue 1", 0.0, ProbabilityType(0.1), 0.0/0.1],
+        ["div rvalue 2", 0.1, ProbabilityType(0.1), 0.1/0.1],
+        ["div rvalue 3", 0.1, ProbabilityType(0.3), 0.1/0.3],
+        ["div rvalue 4", 0.3, ProbabilityType(0.3), 0.3/0.3],
+        ["div rvalue 5", 0.3, ProbabilityType(0.1), 1.0],
         # ProbabilityType
         ["div ProbabilityType 1", ProbabilityType(0.0), ProbabilityType(0.1), 0.0/0.1],
-        ["div lvalue 2", ProbabilityType(0.1), ProbabilityType(0.1), 0.1/0.1],
-        ["div lvalue 3", ProbabilityType(0.3), ProbabilityType(0.1), 0.1/0.3],
-        ["div lvalue 4", ProbabilityType(0.3), ProbabilityType(0.3), 0.3/0.3],
-        ["div lvalue 5", ProbabilityType(0.1), ProbabilityType(0.3), 1.0],
+        ["div ProbabilityType 2", ProbabilityType(0.1), ProbabilityType(0.1), 0.1/0.1],
+        ["div ProbabilityType 3", ProbabilityType(0.1), ProbabilityType(0.3), 0.1/0.3],
+        ["div ProbabilityType 4", ProbabilityType(0.3), ProbabilityType(0.3), 0.3/0.3],
+        ["div ProbabilityType 5", ProbabilityType(0.3), ProbabilityType(0.1), 1.0],
     ]
 
-    for test in multiply_tests:
+    for test in div_tests:
         r = test[1] / test[2]
         if r.p_value != test[3]:
             print(TEST_ERR_FORMAT.format(test[0], r.p_value,  test[3]))
@@ -205,10 +206,10 @@ def ProbabilityObject_test():
     ProbabilityObject test
     :return:
     """
-    # init_del_obj_t()
-    # add_t()
-    # subtruct_t()
-    # multiply_t()
+    init_del_obj_t()
+    add_t()
+    subtruct_t()
+    multiply_t()
     div_t()
 
 if __name__ == "__main__":
