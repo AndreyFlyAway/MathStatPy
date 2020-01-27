@@ -17,7 +17,7 @@ def init_del_obj_t():
         ["init 0.2", ProbabilityType(0.2), 0.2],
         ["init 1.0", ProbabilityType(1.0), 1.0],
         ["init 2.0", ProbabilityType(2.0), 1.0],
-        ["init none", ProbabilityType(), 0.0],
+        ["init empty", ProbabilityType(), 0.0],
         ["init 1", ProbabilityType(1), 1.0],
         ["init 100000", ProbabilityType(100000), 1.0],
         ]
