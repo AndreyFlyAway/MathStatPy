@@ -17,6 +17,7 @@ def init_del_obj_t():
         ["init 0.2", ProbabilityType(0.2), 0.2],
         ["init 1.0", ProbabilityType(1.0), 1.0],
         ["init 2.0", ProbabilityType(2.0), 1.0],
+        ["init none", ProbabilityType(), 0.0],
         ["init 1", ProbabilityType(1), 1.0],
         ["init 100000", ProbabilityType(100000), 1.0],
         ]
@@ -238,6 +239,56 @@ def remainder_o():
     if (not(test_faild)):
         print (TEST_OK_FORMAT.format(test_name))
 
+def pow_t():
+    """
+    power operation test
+    :return:
+    """
+    test_name = "pow operation"
+    test_faild = False
+    pow_tests = [
+        ["pow 1", ProbabilityType(0.0), 0, 0.0 ** 0],
+        ["pow 1", ProbabilityType(0.1), 0, 0.1 ** 0],
+        ["pow 2", ProbabilityType(0.1), 1, 0.1 ** 1],
+        ["pow 3", ProbabilityType(0.1), 2, 0.1 ** 2],
+        ["pow 4", ProbabilityType(0.13), 3, 0.13 ** 3],
+        ["pow 5", ProbabilityType(0.1334), 4, 0.1334 ** 4],
+    ]
+
+    for test in pow_tests:
+        r = test[1] ** test[2]
+        if r.p_value != test[3]:
+            print(TEST_ERR_FORMAT.format(test[0], r.p_value,  test[3]))
+            test_faild = True
+
+    if (not(test_faild)):
+        print (TEST_OK_FORMAT.format(test_name))
+
+def invert_t():
+    """
+    ivernt operation test
+    :return:
+    """
+    test_name = "ivernt operation"
+    test_faild = False
+    pow_tests = [
+        ["ivernt 1", ProbabilityType(0.0), 1.0 - 0.0],
+        ["ivernt 2", ProbabilityType(0.1), 1.0 - 0.1],
+        ["ivernt 3", ProbabilityType(0.4), 1.0 - 0.4],
+        ["ivernt 4", ProbabilityType(0.31234), 1.0 - 0.31234],
+        ["ivernt 5", ProbabilityType(0.999999), 1.0 - 0.999999],
+        ["ivernt 6", ProbabilityType(1.0), 1.0 - 1.0],
+    ]
+
+    for test in pow_tests:
+        r = ~test[1]
+        if r.p_value != test[2]:
+            print(TEST_ERR_FORMAT.format(test[0], r.p_value,  test[2]))
+            test_faild = True
+
+    if (not(test_faild)):
+        print (TEST_OK_FORMAT.format(test_name))
+
 def ProbabilityObject_test():
     """
     ProbabilityObject test
@@ -249,6 +300,8 @@ def ProbabilityObject_test():
     multiply_t()
     div_t()
     remainder_o()
+    pow_t()
+    invert_t()
 
 if __name__ == "__main__":
     ProbabilityObject_test()

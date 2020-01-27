@@ -28,7 +28,7 @@ static PyNumberMethods value_as_number = {
         0,                                  /* nb_positive */
         0,                                  /* nb_absolute */
         0,                /* nb_bool */
-        Probabilit_negative,                                  /* nb_invert */
+        Probabilit_invert,                                  /* nb_invert */
         0,                                          /*nb_lshift*/
         0,                                          /*nb_rshift*/
         0,                                          /*nb_and*/

@@ -1,5 +1,5 @@
 ///*
-// * descibe of probability object
+// * describe of probability object
 // *
 // * Created  on 15.01.20.
 // */
@@ -43,7 +43,7 @@ int
 Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
 {
     double _p_val;
-    if (!PyArg_ParseTuple(args, "d", &_p_val))
+    if (!PyArg_ParseTuple(args, "|d", &_p_val))
         return -1;
     if (_p_val > 1.0)
     {
@@ -181,13 +181,19 @@ Probabilit_remainder(PyObject *left, PyObject *right)
 }
 
 PyObject *
+Probabilit_divmod(PyObject *left, PyObject *right)
+{
+    return num_operation(left, right, fmod);
+}
+
+PyObject *
 Probabilit_pow(PyObject *n, PyObject *value)
 {
     return num_operation(n, value, pow);
 }
 
 PyObject *
-Probabilit_negative(PyObject *val)
+Probabilit_invert(PyObject *val)
 {
     PyObject *result = new_probability_obj(1.0 - ((ProbabilityObject *)val)->p_value);
     return result;

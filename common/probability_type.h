@@ -32,7 +32,7 @@ PyObject *Probabilit_multiply(PyObject *left, PyObject *right);
 PyObject *Probabilit_divide(PyObject *left, PyObject *right);
 PyObject *Probabilit_remainder(PyObject *left, PyObject *right);
 PyObject *Probabilit_pow(PyObject *value, PyObject *n);
-PyObject *Probabilit_negative(PyObject *val);
+PyObject *Probabilit_invert(PyObject *val);
 
 /* secondary functions */
 PyObject *persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored));
