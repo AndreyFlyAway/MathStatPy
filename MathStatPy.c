@@ -29,7 +29,30 @@ static PyNumberMethods value_as_number = {
         0,                                  /* nb_absolute */
         0,                /* nb_bool */
         Probabilit_negative,                                  /* nb_invert */
+        0,                                          /*nb_lshift*/
+        0,                                          /*nb_rshift*/
+        0,                                          /*nb_and*/
+        0,                                          /*nb_xor*/
+        0,                                          /*nb_or*/
+        0,                                          /*nb_int*/
+        0,                                          /*nb_reserved*/
+        0,                                          /*nb_float*/
+        0,                                          /*nb_inplace_add*/
+        0,                                          /*nb_inplace_subtract*/
+        0,                                          /*nb_inplace_multiply*/
+        0,                                          /*nb_inplace_remainder*/
+        0,                                          /*nb_inplace_power*/
+        0,                                          /*nb_inplace_lshift*/
+        0,                                          /*nb_inplace_rshift*/
+        0,                                          /*nb_inplace_and*/
+        0,                                          /*nb_inplace_xor*/
+        0,                                          /*nb_inplace_or*/
+        0,                                          /* nb_floor_divide */
+        Probabilit_divide,                                          /* nb_true_divide */
+        0,                                          /* nb_inplace_floor_divide */
+        0,                                          /* nb_inplace_true_divide */
 };
+
 
 PyTypeObject ProbabilityType = {
      PyVarObject_HEAD_INIT(NULL, 0)

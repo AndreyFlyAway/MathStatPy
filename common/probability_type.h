@@ -29,6 +29,7 @@ PyObject *Probabilit_pValGetAttr(ProbabilityObject *self,  void *Py_UNUSED(ignor
 PyObject *Probabilit_add(PyObject *left, PyObject *right);
 PyObject *Probabilit_subtract(PyObject *left, PyObject *right);
 PyObject *Probabilit_multiply(PyObject *left, PyObject *right);
+PyObject *Probabilit_divide(PyObject *left, PyObject *right);
 PyObject *Probabilit_remainder(PyObject *left, PyObject *right);
 PyObject *Probabilit_pow(PyObject *value, PyObject *n);
 PyObject *Probabilit_negative(PyObject *val);

@@ -10,17 +10,10 @@
     new_probability_ext(p_val, &ProbabilityType)
 #define check_p_val(p_val) { ((double )p_val > 1.0) ? 1.0 : p_val }
 
-static double sum_o(double v_l, double v_r) { return v_l + v_r;}
-static double subtract_o(double v_l, double v_r) { return v_l - v_r;}
+static double sum_o(double v_l, double v_r) { return v_r + v_l;}
+static double subtract_o(double v_l, double v_r) { return v_r - v_l;}
 static double multiply_o(double v_l, double v_r) { return v_r * v_l;}
-
-//static double pow_i_o(double val, double n)
-//{
-//    if (n == 0)
-//        return 1;
-//    else
-//        return pow_i_o(double val, n -1);
-//}
+static double divide_o(double v_l, double v_r) { return v_l / v_r;}
 
 static PyObject *
 new_probability_ext(double _p_val,
@@ -49,7 +42,6 @@ ProbabilityObject_new(PyTypeObject  *type, PyObject *args, PyObject *kwds)
 int
 Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
 {
-    static char *kwlist[] = {"p_value", NULL};
     double _p_val;
     if (!PyArg_ParseTuple(args, "d", &_p_val))
         return -1;
@@ -127,7 +119,7 @@ num_operation(PyObject *left, PyObject *right, double (*operation)(double v_l, d
     }
     else
     {
-        res = check_p_val(operation(_v_right, _v_left));
+        res = check_p_val(operation(_v_left, _v_right));
         if (res < 0.0)
         {
             PyErr_SetString(PyExc_TypeError, "Result of numeric operation cant be negative!");
@@ -176,11 +168,16 @@ Probabilit_multiply(PyObject *left, PyObject *right)
 {
     return num_operation(left, right, multiply_o);
 }
+PyObject *
+Probabilit_divide(PyObject *left, PyObject *right)
+{
+    return num_operation(left, right, divide_o);
+}
 
 PyObject *
 Probabilit_remainder(PyObject *left, PyObject *right)
 {
-    return num_operation(right, left, fmod);
+    return num_operation(left, right, fmod);
 }
 
 PyObject *

@@ -201,6 +201,43 @@ def div_t():
     if (not(test_faild)):
         print (TEST_OK_FORMAT.format(test_name))
 
+def remainder_o():
+    """
+    remainder operation test
+    :return:
+    """
+    test_name = "remainder operation"
+    test_faild = False
+    remainder_tests = [
+        # rvalue
+        ["remainder rvalue 1", ProbabilityType(0.0), 0.1, 0.0%0.1],
+        ["remainder rvalue 2", ProbabilityType(0.3), 0.2, 0.3%0.2],
+        ["remainder rvalue 3", ProbabilityType(0.5), 0.2, 0.5%0.2],
+        ["remainder rvalue 4", ProbabilityType(0.7), 0.21, 0.7%0.21],
+        ["remainder rvalue 5", ProbabilityType(0.0), 0.21312, 0.0%0.21312],
+        # lvalue
+        ["remainder rvalue 1", 0.0, ProbabilityType(0.1), 0.0%0.1],
+        ["remainder rvalue 2", 0.3, ProbabilityType(0.2), 0.3%0.2],
+        ["remainder rvalue 3", 0.5, ProbabilityType(0.2), 0.5%0.2],
+        ["remainder rvalue 4", 0.7, ProbabilityType(0.21), 0.7%0.21],
+        ["remainder rvalue 5", 0.0, ProbabilityType(0.21312), 0.0%0.21312],
+        # ProbabilityType
+        ["remainder ProbabilityType 1", ProbabilityType(0.0), ProbabilityType(0.1), 0.0%0.1],
+        ["remainder rvalue 2", ProbabilityType(0.3), ProbabilityType(0.2), 0.3%0.2],
+        ["remainder rvalue 3", ProbabilityType(0.5), ProbabilityType(0.2), 0.5%0.2],
+        ["remainder rvalue 4", ProbabilityType(0.7), ProbabilityType(0.21), 0.7%0.21],
+        ["remainder rvalue 5", ProbabilityType(0.0), ProbabilityType(0.21312), 0.0%0.21312],
+    ]
+
+    for test in remainder_tests:
+        r = test[1] % test[2]
+        if r.p_value != test[3]:
+            print(TEST_ERR_FORMAT.format(test[0], r.p_value,  test[3]))
+            test_faild = True
+
+    if (not(test_faild)):
+        print (TEST_OK_FORMAT.format(test_name))
+
 def ProbabilityObject_test():
     """
     ProbabilityObject test
@@ -211,6 +248,7 @@ def ProbabilityObject_test():
     subtruct_t()
     multiply_t()
     div_t()
+    remainder_o()
 
 if __name__ == "__main__":
     ProbabilityObject_test()

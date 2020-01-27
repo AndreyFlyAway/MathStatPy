@@ -7,7 +7,7 @@ import sys
 
 """ defines """
 NAME = "MathStatPy"
-VERSION = "0.3"
+VERSION = "0.0.1"
 AUTHOR = "Yanikeev Andrey"
 AUTHOR_EMAIL = "ggg235235@gmail.com"
 URL= "https://github.com/AndreyFlyAway/MathStatPy"
