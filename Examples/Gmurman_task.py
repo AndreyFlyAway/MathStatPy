@@ -53,8 +53,8 @@ def ex_68():
     one by one without returning. Find the probabilities of the
     following events:
     a) balls with numbers 1, 4, 5 will appear sequentially
-    b) extracted balls will have numbers 1, 4, 5 no matter in what order they
-       will appear
+    b) taken balls will have numbers 1, 4, 5 no matter in what order they
+       appear
     Answer in the book: a) 1/60 b) 0.1
     :return:
     """
