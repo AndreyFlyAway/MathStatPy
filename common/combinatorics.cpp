@@ -6,7 +6,7 @@
 /*
  *  factorial
  */
-long int _factorial(long int N)
+ull _factorial(int N)
 {
     if ( N == 0)
         return 1;
@@ -17,7 +17,7 @@ long int _factorial(long int N)
 /*
  * variations without repetition
  */
-long int _variations(long int m, long int n)
+ull _variations(int m, int n)
 {
     if (m == 0)
         return 1;
@@ -28,22 +28,21 @@ long int _variations(long int m, long int n)
 /*
  * combinations
  */
-long int _combinations(long int m, long int n)
+ull _combinations(int m, int n)
 {
-    long int C;
+    unsigned long C;
     C = _factorial(n) / (_factorial(m) * _factorial(n - m));
     return C;
 }
 
 // TODO: make limits for input values of combinatoric functions
 // TODO: change type of input and output values to unsigned
-
-
 PyObject *
 Permutation(PyObject *self, PyObject *args)
 {
-    long int N, res;
-    if (!PyArg_ParseTuple(args, "l", &N))
+    ull res;
+    int N;
+    if (!PyArg_ParseTuple(args, "I", &N))
         return NULL;
     if (N < 0) {
         PyErr_SetString(ErrorWrongValueObject, "N cant be less then 0!");
@@ -51,15 +50,16 @@ Permutation(PyObject *self, PyObject *args)
     }
     res = _factorial(N);
 
-    return PyLong_FromLong(res);
+    return PyLong_FromUnsignedLongLong(res);
 }
 
 
 PyObject *
 Variations(PyObject *self, PyObject *args)
 {
-    long int M, N, res;
-    if (!PyArg_ParseTuple(args, "ll", &M, &N))
+    int M, N;
+    ull res;
+    if (!PyArg_ParseTuple(args, "II", &M, &N))
         return NULL;
     if ((M < 0) || (N < 0)){
         PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
@@ -71,14 +71,15 @@ Variations(PyObject *self, PyObject *args)
     }
     res = _variations(M, N);
 
-    return PyLong_FromLong(res);
+    return PyLong_FromUnsignedLongLong(res);
 }
 
 PyObject *
 Combinations(PyObject *self, PyObject *args)
 {
-    long int M, N, res;
-    if (!PyArg_ParseTuple(args, "ll", &M, &N))
+    int M, N;
+    ull res;
+    if (!PyArg_ParseTuple(args, "II", &M, &N))
         return NULL;
     if ((M < 0) || (N < 0)){
         PyErr_SetString(ErrorWrongValueObject, "M and N cant be less then 0!");
@@ -94,6 +95,6 @@ Combinations(PyObject *self, PyObject *args)
     }
     res = _combinations(M, N);
 
-    return PyLong_FromLong(res);
+    return PyLong_FromUnsignedLongLong(res);
 
 }

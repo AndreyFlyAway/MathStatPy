@@ -9,9 +9,11 @@
 
 PyObject *ErrorWrongValueObject;
 
-long int _factorial(long int N);
-long int _variations(long int m, long int n);
-long int _combinations(long int m, long int n);
+typedef unsigned long long ull;
+
+ull _factorial(int N);
+ull _variations(int m, int n);
+ull _combinations(int m, int n);
 
 PyObject *Permutation(PyObject *self, PyObject *args);
 PyObject *Variations(PyObject *self, PyObject *args);
