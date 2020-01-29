@@ -25,6 +25,7 @@ void ProbabilityObject_dealloc(ProbabilityObject *self);
 int Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds);
 int Probability_pValSetAttr(ProbabilityObject *self, PyObject *value);
 PyObject *Probabilit_pValGetAttr(ProbabilityObject *self,  void *Py_UNUSED(ignored));
+PyObject *Probability_repr(ProbabilityObject *self);
 /* numeric operations */
 PyObject *Probabilit_add(PyObject *left, PyObject *right);
 PyObject *Probabilit_subtract(PyObject *left, PyObject *right);

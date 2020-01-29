@@ -69,6 +69,7 @@ PyTypeObject ProbabilityType = {
     .tp_new = ProbabilityObject_new,
     .tp_dealloc = (destructor) ProbabilityObject_dealloc,
     .tp_as_number = &value_as_number,
+    .tp_repr = Probability_repr
 };
 
 /* methods */

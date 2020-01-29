@@ -18,10 +18,10 @@ except ImportError:
     from distutils.core import setup, Extension
 
 module1 = Extension(NAME,
-		    include_dirs=['common', ],
+		    include_dirs=['src', ],
             sources=['MathStatPy.c',
-                     os.path.join('common', 'combinatorics.cpp'),
-                     os.path.join('common', 'probability_type.cpp',),
+                     os.path.join('src', 'combinatorics.cpp'),
+                     os.path.join('src', 'probability_type.cpp',),
                      ]
                     )
 
@@ -31,6 +31,6 @@ setup (name=NAME,
        author_email=AUTHOR_EMAIL,
        url=URL,
        description='This is a not spam package',
-       package_dir={'common': 'common'},
+       package_dir={'src': 'src'},
        #ext_modules=[module1])
        ext_modules=[module1])

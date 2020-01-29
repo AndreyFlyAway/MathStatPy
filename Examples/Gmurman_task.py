@@ -43,12 +43,12 @@ def ex_51():
 
 def ex_68():
     """
-    Exercise 68 page 22
-    Text: There are five balls in the urn with numbers from 1 to 5.At random, three
+    Exercise 68 page 22.
+    Text: There are five balls in the urn with numbers from 1 to 5. At random, three
     balls are taken one at a time without returning. Find the probabilities of the
     following events:
-    a) balls with numbers 1, 4, 5 will appear sequentially ;
-    b) extracted balls will have numbers i, 4, 5 no matter in what order they
+    a) balls with numbers 1, 4, 5 will appear sequentially
+    b) extracted balls will have numbers 1, 4, 5 no matter in what order they
        appeared.
     Answer in the book: a) 1/60 b) 0.1
     :return:

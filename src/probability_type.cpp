@@ -100,11 +100,33 @@ ProbabilityObject_dealloc(ProbabilityObject *self)
 }
 
 PyObject *
+Probability_repr(ProbabilityObject *self)
+{
+    int vH;
+    unsigned long vL;
+    if (self->p_value == 1.0)
+    {
+        vH = (int)self->p_value;
+        vL = 0;
+    }
+    else
+    {
+        vH = 0;
+        vL = ((unsigned long)(self->p_value * 10000000.0)) % 10000000;
+    }
+    return PyUnicode_FromFormat("%d.%lu", vH, vL);
+}
+
+/* custom methods */
+
+PyObject *
 persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
 {
     long v = long(self->p_value * 100);
     return PyLong_FromLong(v);
 }
+
+/* numeric operations */
 
 PyObject *
 num_operation(PyObject *left, PyObject *right, double (*operation)(double v_l, double v_r))

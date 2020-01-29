@@ -9,13 +9,13 @@ set (CMAKE_CXX_FLAGS "-fpermissive")
 
 set(I /usr/local/include/python3.8/)
 	
-include_directories(common)
+include_directories(src)
 
 add_library(MathStatPyLib SHARED
-			common/combinatorics.cpp
-            common/combinatorics.h
-            common/probability_type.cpp
-            common/probability_type.h
+		src/combinatorics.cpp
+		src/combinatorics.h
+		src/probability_type.cpp
+		src/probability_type.h
 			MathStatPy.c)
 
 include_directories(/usr/local/include/python3.8/)

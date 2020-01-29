@@ -53,7 +53,6 @@ Permutation(PyObject *self, PyObject *args)
     return PyLong_FromUnsignedLongLong(res);
 }
 
-
 PyObject *
 Variations(PyObject *self, PyObject *args)
 {
