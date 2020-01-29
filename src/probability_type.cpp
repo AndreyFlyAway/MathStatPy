@@ -36,6 +36,7 @@ ProbabilityObject_new(PyTypeObject  *type, PyObject *args, PyObject *kwds)
     self = (ProbabilityObject *) type->tp_alloc(type, 0);
     if (self != NULL) {
         self->p_value = 0.0;
+        self->exceeded = 0;
     }
     return (PyObject *) self;
 }
@@ -49,6 +50,7 @@ Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
     if (_p_val > 1.0)
     {
         self->p_value = 1.0;
+        self->exceeded = 1;
     }
     else if(_p_val < 0.0)
     {
@@ -58,6 +60,7 @@ Probability_init(ProbabilityObject *self, PyObject *args, PyObject *kwds)
     else
     {
         self->p_value = _p_val;
+        self->exceeded = 0;
     }
 
     return 0;
@@ -89,6 +92,10 @@ Probability_pValSetAttr(ProbabilityObject *self, PyObject *value)
     else{
         self->p_value = check_p_val(_p_val);
     }
+    if (_p_val > 1.0)
+        self->exceeded = 1;
+    else
+        self->exceeded = 0;
 
     return 0;
 }
@@ -120,10 +127,16 @@ Probability_repr(ProbabilityObject *self)
 /* custom methods */
 
 PyObject *
-persentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
+percentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
 {
     long v = long(self->p_value * 100);
     return PyLong_FromLong(v);
+}
+
+PyObject *
+exceeded(ProbabilityObject *self, PyObject *Py_UNUSED(ignored))
+{
+    return PyBool_FromLong(self->exceeded);
 }
 
 /* numeric operations */
