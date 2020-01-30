@@ -289,6 +289,44 @@ def invert_t():
     if (not(test_faild)):
         print (TEST_OK_FORMAT.format(test_name))
 
+def nb_float_t():
+    """
+    nb_float operation test
+    :return:
+    """
+    test_name = "nb_float operation"
+    test_faild = False
+    pow_tests = [
+        ["nb_float 1", ProbabilityType(0.0), 0.0],
+        ["nb_float 2", ProbabilityType(0.1),0.1],
+        ["nb_float 3", ProbabilityType(0.4), 0.4],
+        ["nb_float 4", ProbabilityType(0.31234), 0.31234],
+        ["nb_float 5", ProbabilityType(0.999999), 0.999999],
+        ["nb_float 6", ProbabilityType(1.0), 1.0],
+        ["nb_float 7", ProbabilityType(1.2), 1.0],
+    ]
+
+    for test in pow_tests:
+        r = float(test[1])
+        if r != test[2]:
+            print(TEST_ERR_FORMAT.format(test[0], r.p_value,  test[2]))
+            test_faild = True
+
+    if (not(test_faild)):
+        print (TEST_OK_FORMAT.format(test_name))
+
+def repr_t():
+    """
+    repr method test
+    :return:
+    """
+    a = ProbabilityType(0.0)
+    b = ProbabilityType(0.1)
+    c = ProbabilityType(0.1/0.3)
+    d = ProbabilityType(1.0)
+    print(a, b, c, d)
+
+
 def ProbabilityObject_test():
     """
     ProbabilityObject test
@@ -302,6 +340,7 @@ def ProbabilityObject_test():
     remainder_o()
     pow_t()
     invert_t()
+    nb_float_t()
 
 if __name__ == "__main__":
     ProbabilityObject_test()
