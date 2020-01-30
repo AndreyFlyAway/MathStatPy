@@ -24,7 +24,7 @@ static PyNumberMethods value_as_number = {
         Probabilit_multiply,                                  /* nb_multiply */
         Probabilit_remainder,                                  /* nb_remainder */
         0,                                  /* nb_divmod */
-        Probabilit_pow,                                  /* nb_power */
+        (unaryfunc)Probabilit_pow,                                  /* nb_power */
         0,                                  /* nb_negative */
         0,                                  /* nb_positive */
         0,                                  /* nb_absolute */
@@ -37,7 +37,7 @@ static PyNumberMethods value_as_number = {
         0,                                          /*nb_or*/
         0,                                          /*nb_int*/
         0,                                          /*nb_reserved*/
-        0,                                          /*nb_float*/
+        Probabilit_nb_float,                                          /*nb_float*/
         0,                                          /*nb_inplace_add*/
         0,                                          /*nb_inplace_subtract*/
         0,                                          /*nb_inplace_multiply*/

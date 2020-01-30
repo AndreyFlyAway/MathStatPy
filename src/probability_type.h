@@ -35,6 +35,7 @@ PyObject *Probabilit_divide(PyObject *left, PyObject *right);
 PyObject *Probabilit_remainder(PyObject *left, PyObject *right);
 PyObject *Probabilit_pow(PyObject *value, PyObject *n);
 PyObject *Probabilit_invert(PyObject *val);
+PyObject *Probabilit_nb_float(PyObject *self);
 
 /* secondary functions */
 PyObject *percentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored));

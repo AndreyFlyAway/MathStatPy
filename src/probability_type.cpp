@@ -228,3 +228,10 @@ Probabilit_invert(PyObject *val)
     PyObject *result = new_probability_obj(1.0 - ((ProbabilityObject *)val)->p_value);
     return result;
 }
+
+PyObject *
+Probabilit_nb_float(PyObject *self)
+{
+    ProbabilityObject* v = (ProbabilityObject*)self;
+    return PyFloat_FromDouble(v->p_value);
+}
