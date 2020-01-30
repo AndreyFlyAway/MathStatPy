@@ -9,8 +9,10 @@ PyObject *Bernoulli_func(PyObject *self, PyObject *args)
     int m,n;
     double p;
     ull combs;
-    if (!PyArg_ParseTuple(args, "iid", &k, &n, &p))
+    if (!PyArg_ParseTuple(args, "iid", &m, &n, &p))
         return NULL;
     combs = _combinations(m, n);
+    p = ((double) combs) * pow(p, m) * pow(1.0 - p, n - m);
+    PyObject *resul = new_probability_obj(p);
 
 }

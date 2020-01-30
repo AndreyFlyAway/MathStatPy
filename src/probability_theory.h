@@ -11,6 +11,7 @@
 extern "C" {
 #endif
 
+#include <math.h>
 #include "Python.h"
 #include "combinatorics.h"
 #include "probability_type.h"
@@ -22,7 +23,7 @@ PyDoc_STRVAR(MathStatPy_Bernoulli_func_doc,
 \n\
 Bernoulli's function ");
 
-#define COMBINATORICS_PERMUTATION_FNC    \
+#define BERNOULLI_FUNC    \
     {"Bernoulli_func", (PyCFunction)Bernoulli_func, METH_VARARGS, MathStatPy_Bernoulli_func_doc},
 
 #ifdef __cplusplus
