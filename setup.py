@@ -22,6 +22,7 @@ module1 = Extension(NAME,
             sources=['MathStatPy.c',
                      os.path.join('src', 'combinatorics.cpp'),
                      os.path.join('src', 'probability_type.cpp',),
+                     os.path.join('src', 'probability_theory.cpp',),
                      ]
                     )
 

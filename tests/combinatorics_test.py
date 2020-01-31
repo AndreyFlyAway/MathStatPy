@@ -25,7 +25,7 @@ def Permutation_test():
         ["P(8)", 8, math.factorial(8)],
         ["P(9)", 9, math.factorial(9)],
         ["P(10)", 10, math.factorial(10)],
-        ["P(20)", 21, math.factorial(20)],
+        ["P(20)", 20, math.factorial(20)],
     ]
 
     for test in adding_tests:

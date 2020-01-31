@@ -16,6 +16,8 @@ extern "C" {
 #include "combinatorics.h"
 #include "probability_type.h"
 
+extern PyObject *ErrorWrongValueObject;
+
 PyObject *Bernoulli_func(PyObject *self, PyObject *args);
 
 PyDoc_STRVAR(MathStatPy_Bernoulli_func_doc,

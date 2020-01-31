@@ -16,7 +16,9 @@ add_library(MathStatPyLib SHARED
 		src/combinatorics.h
 		src/probability_type.cpp
 		src/probability_type.h
-			MathStatPy.c)
+		src/probability_theory.cpp
+		src/probability_theory.h
+		MathStatPy.c)
 
 include_directories(/usr/local/include/python3.8/)
 

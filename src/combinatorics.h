@@ -7,7 +7,7 @@
 
 #include "Python.h"
 
-PyObject *ErrorWrongValueObject;
+extern PyObject *ErrorWrongValueObject;
 
 typedef unsigned long long ull;
 
@@ -18,8 +18,6 @@ ull _combinations(int m, int n);
 PyObject *Permutation(PyObject *self, PyObject *args);
 PyObject *Variations(PyObject *self, PyObject *args);
 PyObject *Combinations(PyObject *self, PyObject *args);
-
-
 
 PyDoc_STRVAR(MathStatPy_permutation_doc,
              "P(N)\n\
@@ -51,4 +49,4 @@ Return combinations of variations without repetitions for m of n objects."
 }
 #endif
 
-#endif
+#endif //COMBINATORICS_H_

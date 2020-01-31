@@ -1,9 +1,11 @@
 #include "Python.h"
+#include "structmember.h"
 #include "combinatorics.h"
 #include "probability_type.h"
-#include "structmember.h"
+#include "probability_theory.h"
 
 /* objects */
+PyObject *ErrorWrongValueObject;
 
 static PyMethodDef Probability_methods[] = {
         PROBABILITY_PERSENTEAGE
@@ -79,6 +81,7 @@ static PyMethodDef MathStatPy_methods[] = {
     COMBINATORICS_PERMUTATION_FNC
     COMBINATORICS_VARIATIONS_FNC
     COMBINATORICS_COMBINATIONS_FNC
+    BERNOULLI_FUNC
     {NULL,              NULL}           /* sentinel */
 };
 

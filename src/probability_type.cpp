@@ -6,17 +6,12 @@
 #include "probability_type.h"
 #include <math.h>
 
-#define PyObj_Check(op) PyObject_TypeCheck(op, &ProbabilityType)
-#define new_probability_obj(p_val)  \
-    new_probability_ext(p_val, &ProbabilityType)
-#define check_p_val(p_val) { ((double )p_val > 1.0) ? 1.0 : p_val }
-
 static double sum_o(double v_l, double v_r) { return v_r + v_l;}
 static double subtract_o(double v_l, double v_r) { return v_r - v_l;}
 static double multiply_o(double v_l, double v_r) { return v_r * v_l;}
 static double divide_o(double v_l, double v_r) { return v_l / v_r;}
 
-static PyObject *
+PyObject *
 new_probability_ext(double _p_val,
                    PyTypeObject *type)
 {

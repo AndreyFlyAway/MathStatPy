@@ -12,6 +12,12 @@ extern "C" {
 #include "Python.h"
 #include <math.h>
 
+#define PyObj_Check(op) PyObject_TypeCheck(op, &ProbabilityType)
+#define new_probability_obj(p_val)  \
+    new_probability_ext(p_val, &ProbabilityType)
+#define check_p_val(p_val) { ((double )p_val > 1.0) ? 1.0 : p_val }
+
+
 typedef struct {
     PyObject_HEAD
     PyObject            *x_attr;        /* Attributes dictionary */
@@ -42,6 +48,7 @@ PyObject *percentage(ProbabilityObject *self, PyObject *Py_UNUSED(ignored));
 void p_values_check(PyObject *left, PyObject *right, double *v_left, double *v_rigt);
 PyObject *num_operation(PyObject *left, PyObject *right, double (*operation)(double v_l, double v_r));
 PyObject *exceeded(ProbabilityObject *self, PyObject *Py_UNUSED(ignored));
+PyObject *new_probability_ext(double _p_val, PyTypeObject *type);
 
 extern PyTypeObject ProbabilityType;
 
