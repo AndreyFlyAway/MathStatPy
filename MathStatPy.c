@@ -82,6 +82,7 @@ static PyMethodDef MathStatPy_methods[] = {
     COMBINATORICS_VARIATIONS_FNC
     COMBINATORICS_COMBINATIONS_FNC
     BERNOULLI_FUNC
+    MOIVRE_LAPLACE_FUNC
     {NULL,              NULL}           /* sentinel */
 };
 
