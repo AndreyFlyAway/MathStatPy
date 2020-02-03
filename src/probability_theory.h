@@ -20,6 +20,8 @@ extern PyObject *ErrorWrongValueObject;
 
 /* common */
 double Fi(double x);
+double Fi_Laplcae(double x);
+double Integral(double x0, double xN, double (*F)(double x));
 
 /* Python functions */
 PyObject *Bernoulli_func(PyObject *self, PyObject *args);
@@ -32,7 +34,7 @@ Bernoulli function calcuates probability that in n independent tests event with"
 "probability p will occurs exactly k times.\n");
 
 PyDoc_STRVAR(Moivre_Laplace_func_doc,
-             "Moivre_Laplace_func(m, n, p)\n\
+"Moivre_Laplace_func(m, n, p)\n\
 \n\
 De Moivre-Laplace  theorem.\n");
 

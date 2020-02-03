@@ -44,7 +44,7 @@ def ex_51():
     p1 = P_Type(0.7)
     p2 = P_Type(0.8)
     res = p1 * (~p2) + (~p1) * p2
-    answer("51", res.p_value)
+    answer("51", res)
 
 def ex_68():
     """
@@ -60,8 +60,9 @@ def ex_68():
     """
     p_A = P_Type(1/5) * P_Type(1/4) * P_Type(1/3)
     p_B = P_Type(3/5) * P_Type(2/4) * P_Type(1/3)
-    answer("68 a", p_A.p_value)
-    answer("68 b", p_B.p_value)
+    answer("68 a", p_A)
+    answer("68 b", p_B)
+
 
 if __name__ == "__main__":
     ex_46()

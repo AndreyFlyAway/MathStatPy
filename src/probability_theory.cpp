@@ -4,11 +4,32 @@
 
 #include "probability_theory.h"
 
+/* common */
 double Fi(double x){
     double res = (1 / sqrt(2 * M_PI)) * exp(-(pow(x, 2)) / 2);
     return res;
 }
 
+double Fi_Laplcae(double z){
+    double res = (1 / sqrt(2 * M_PI)) * exp(-(pow(z, 2)) / 2);
+    return res;
+}
+
+double Integral(double x0, double xN, double (*F)(double x))
+{
+    double c_delta, res, x_step;
+    res = 0.0;
+    c_delta = (xN - x0)/1000.0;
+    x_step = x0 + c_delta;
+    while(x_step < xN)
+    {
+        res = res + F(x_step) * c_delta;
+        x_step = x_step + c_delta;
+    }
+    return res;
+}
+
+/* Python functions */
 PyObject *Moivre_Laplace_func(PyObject *self, PyObject *args){
     int k, n;
     double p, x, res;
