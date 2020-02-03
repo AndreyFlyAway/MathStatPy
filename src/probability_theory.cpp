@@ -5,6 +5,15 @@
 #include "probability_theory.h"
 
 /* common */
+static double get_sign(double v)
+{
+    if (v >= 0)
+        return 1;
+    else
+        return -1;
+
+}
+
 double Fi(double x){
     double res = (1 / sqrt(2 * M_PI)) * exp(-(pow(x, 2)) / 2);
     return res;
@@ -19,7 +28,7 @@ double Integral(double x0, double xN, double (*F)(double x))
 {
     double c_delta, res, x_step;
     res = 0.0;
-    c_delta = (xN - x0)/1000.0;
+    c_delta = (xN - x0)/INTEGRAL_DELTA;
     x_step = x0 + c_delta;
     while(x_step < xN)
     {
@@ -54,4 +63,26 @@ PyObject *Bernoulli_func(PyObject *self, PyObject *args)
     p = ((double) combs) * pow(p, m) * pow(1.0 - p, n - m);
     PyObject *result = new_probability_obj(p);
     return result;
+}
+
+
+PyObject *Laplace_by_Integral(PyObject *self, PyObject *args)
+{
+    int k1, k2, n;
+    double p, q, k_del, np, res;
+    double x1, x2, sign1, sign2;
+    if (!PyArg_ParseTuple(args, "iiid", &k1, &k2, &n, &p))
+        return NULL;
+    //TODO: add value range checking
+    q = 1.0 - p;
+    k_del = sqrt(n * p * q);
+    np = n * p;
+    x1 = (k1 - np) / k_del;
+    x2 = (k2 - np) / k_del;
+    sign1 = get_sign(x1);
+    sign2 = get_sign(x2);
+    res = sign2 * Integral(0, abs(x2), Fi_Laplcae) - sign1 * Integral(0, abs(x1), Fi_Laplcae);
+    PyObject *result = new_probability_obj(res);
+    return result;
+
 }
