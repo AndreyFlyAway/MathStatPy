@@ -30,7 +30,8 @@ double Integral(double x0, double xN, double (*F)(double x))
     res = 0.0;
     c_delta = (xN - x0)/INTEGRAL_DELTA;
     x_step = x0 + c_delta;
-    while(x_step < xN)
+    int n = (xN - x0) / c_delta;
+    for (int i =0; i < n; i++)
     {
         res = res + F(x_step) * c_delta;
         x_step = x_step + c_delta;
@@ -70,7 +71,7 @@ PyObject *Laplace_by_Integral(PyObject *self, PyObject *args)
 {
     int k1, k2, n;
     double p, q, k_del, np, res;
-    double x1, x2, sign1, sign2;
+    double x1, x2;
     if (!PyArg_ParseTuple(args, "iiid", &k1, &k2, &n, &p))
         return NULL;
     //TODO: add value range checking
@@ -79,9 +80,7 @@ PyObject *Laplace_by_Integral(PyObject *self, PyObject *args)
     np = n * p;
     x1 = (k1 - np) / k_del;
     x2 = (k2 - np) / k_del;
-    sign1 = get_sign(x1);
-    sign2 = get_sign(x2);
-    res = sign2 * Integral(0, abs(x2), Fi_Laplcae) - sign1 * Integral(0, abs(x1), Fi_Laplcae);
+    res = Integral(0, (x2), Fi_Laplcae) - Integral(0, (x1), Fi_Laplcae);
     PyObject *result = new_probability_obj(res);
     return result;
 
