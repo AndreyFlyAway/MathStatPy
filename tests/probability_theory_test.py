@@ -43,10 +43,10 @@ def Laplace_by_Integral_test_1():
 
 def Laplace_by_Integral_test_2():
     """
-    De Moivre-Laplace function  test 2. Answer: 0,3994
+    De Moivre-Laplace function  test 2. Answer: 0,8882
     :return:
     """
-    res = Laplace_by_Integral(70, 90, 100, 0.8)
+    res = Laplace_by_Integral(75, 90, 100, 0.8)
     print(res)
 
 if __name__ == "__main__":
