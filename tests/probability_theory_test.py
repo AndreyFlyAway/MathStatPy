@@ -1,5 +1,11 @@
 import sys
+from inspect import stack
 from MathStatPy import Bernoulli_func, Moivre_Laplace_func, Laplace_by_Integral
+
+ANSWER_FMT = "TEST: {0:20} RES: {1}"
+
+def answer(ex, s):
+    print(ANSWER_FMT.format(ex, s))
 
 def Bernoulli_func_test_1():
     """
@@ -7,7 +13,7 @@ def Bernoulli_func_test_1():
     :return:
     """
     res = Bernoulli_func(3, 6, 0.5)
-    print(res)
+    answer(stack()[0][3], res)
 
 def Bernoulli_func_test_2():
     """
@@ -15,7 +21,7 @@ def Bernoulli_func_test_2():
     :return:
     """
     res = Bernoulli_func(4, 6, 0.75)
-    print(res)
+    answer(stack()[0][3], res)
 
 def Moivre_Laplace_test_1():
     """
@@ -23,7 +29,7 @@ def Moivre_Laplace_test_1():
     :return:
     """
     res = Moivre_Laplace_func(8, 10, 0.75)
-    print(res)
+    answer(stack()[0][3], res)
 
 def Moivre_Laplace_test_2():
     """
@@ -31,7 +37,7 @@ def Moivre_Laplace_test_2():
     :return:
     """
     res = Moivre_Laplace_func(80, 400, 0.2)
-    print(res)
+    answer(stack()[0][3], res)
 
 def Laplace_by_Integral_test_1():
     """
@@ -39,7 +45,7 @@ def Laplace_by_Integral_test_1():
     :return:
     """
     res = Laplace_by_Integral(70, 100, 400, 0.2)
-    print(res)
+    answer(stack()[0][3], res)
 
 def Laplace_by_Integral_test_2():
     """
@@ -47,7 +53,7 @@ def Laplace_by_Integral_test_2():
     :return:
     """
     res = Laplace_by_Integral(75, 90, 100, 0.8)
-    print(res)
+    answer(stack()[0][3], res)
 
 if __name__ == "__main__":
     Bernoulli_func_test_1()

@@ -23,7 +23,7 @@ extern PyObject *ErrorWrongValueObject;
 /* common */
 double Fi(double x);
 double Fi_Laplcae(double x);
-double Integral(double x0, double xN, double (*F)(double x));
+double Integral(const double x0, const double xN, double (*F)(double x));
 
 /* Python functions */
 PyObject *Bernoulli_func(PyObject *self, PyObject *args);

@@ -3,14 +3,15 @@
 Гмурмана Виктора Ефимовича.
 
 
-Here are some examples of using MathStatPy. I use tasks from the tasks
-book of  Gmurman Victor Efimovich (the year of publishing is 2018). In his book there are tasks description and result
+Here are some examples of using MathStatPy. I use tasks from the the tasks
+book of Gmurman Victor Efimovich (the year of publishing is 2018). In his book there are tasks description and result
 answers.
 """
 
+from inspect import stack
+
 from MathStatPy import C
 from MathStatPy import ProbabilityType as P_Type
-
 ANSWER_FMT = "Exersize: {0:5} Answer is {1}"
 
 def answer(ex, s):

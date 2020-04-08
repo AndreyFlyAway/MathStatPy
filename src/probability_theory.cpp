@@ -4,6 +4,8 @@
 
 #include "probability_theory.h"
 
+const double INTEGRAL_ACCURACY = 0.0001;
+
 /* common */
 static double get_sign(double v)
 {
@@ -24,20 +26,37 @@ double Fi_Laplcae(double z){
     return res;
 }
 
-double Integral(double x0, double xN, double (*F)(double x))
+double Integral(const double x0, const double xN, double (*F)(double x))
 {
-    double c_delta, res, x_step;
-    c_delta = 0.001;
-    x_step = x0 + c_delta;
-    int n = abs(xN - x0) / c_delta;
-    res = c_delta * (F(x0) + F(xN)) / 2.0;
-    for (int i = 0; i < n-1; i++)
+    unsigned n = 1;
+    double h = (xN - x0);
+    double res = (F(x0) + F(xN)) * (h / 2);
+    double res_last;
+    double accuracy = INTEGRAL_ACCURACY;
+    double sum = 0;
+    double delta, delta_abs;
+
+    for(int k = 0; k < 5; k++)
     {
-        res = res + F(x_step) * c_delta;
-        x_step = x_step + c_delta;
+        sum = 0;
+        h = h/2;
+        for(int j = 1; j <= n; j++)
+            sum += F(x0 + (double((j * 2) - 1) * h));
+
+        res_last = res;
+        res = (res / 2) + (h * sum);
+        delta = res_last / res; - 1;
+        delta_abs = ((delta < 0) ? -delta : delta);
+
+        if((k > 1) && (delta_abs < accuracy))
+            break;
+
+        n *= 2;
     }
+
     return res;
 }
+
 
 /* Python functions */
 PyObject *Moivre_Laplace_func(PyObject *self, PyObject *args){
@@ -80,9 +99,7 @@ PyObject *Laplace_by_Integral(PyObject *self, PyObject *args)
     np = n * p;
     x1 = (k1 - np) / k_del;
     x2 = (k2 - np) / k_del;
-    sign1 = (x1 < 0 ? -1 : 1);
-    sign2 = (x2 < 0 ? -1 : 1);
-    res = sign2 * Integral(0, x2, Fi_Laplcae) - sign1 * Integral(0, x1, Fi_Laplcae);
+    res = Integral(0, x2, Fi_Laplcae) - Integral(0, x1, Fi_Laplcae);
     PyObject *result = new_probability_obj(res);
     return result;
 
