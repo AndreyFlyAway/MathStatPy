@@ -84,6 +84,7 @@ static PyMethodDef MathStatPy_methods[] = {
     BERNOULLI_FUNC
     MOIVRE_LAPLACE_FUNC
     LAPLACE_BY_INTEGRAL_FUNC
+    FREQ_DEVIATION_FUNC
     {NULL,              NULL}           /* sentinel */
 };
 

@@ -29,6 +29,7 @@ double Integral(const double x0, const double xN, double (*F)(double x));
 PyObject *Bernoulli_func(PyObject *self, PyObject *args);
 PyObject *Moivre_Laplace_func(PyObject *self, PyObject *args);
 PyObject *Laplace_by_Integral(PyObject *self, PyObject *args);
+PyObject *Freq_Deviation(PyObject *self, PyObject *args);
 
 PyDoc_STRVAR(MathStatPy_Bernoulli_func_doc,
 "Bernoulli_func(m, n, p)\n\
@@ -49,6 +50,12 @@ PyDoc_STRVAR(Laplace_by_Integral_doc,
 Calcuates approximatel value of probability that in n independent tests event with\"\n"
 "\"probability p will occurs k1 two k2 times.\n");
 
+PyDoc_STRVAR(Freq_Deviation_doc,
+"Freq_Deviation(n, p, eps)\n\
+\n\
+Probability of deviation of relative frequency from constant probability in independent "
+"test.\"\n");
+
 
 #define BERNOULLI_FUNC    \
     {"Bernoulli_func", (PyCFunction)Bernoulli_func, METH_VARARGS, MathStatPy_Bernoulli_func_doc},
@@ -58,6 +65,10 @@ Calcuates approximatel value of probability that in n independent tests event wi
 
 #define LAPLACE_BY_INTEGRAL_FUNC    \
     {"Laplace_by_Integral", (PyCFunction)Laplace_by_Integral, METH_VARARGS, Laplace_by_Integral_doc},
+
+#define FREQ_DEVIATION_FUNC    \
+    {"Freq_Deviation", (PyCFunction)Freq_Deviation, METH_VARARGS, Freq_Deviation_doc},
+
 
 #ifdef __cplusplus
 }

@@ -30,7 +30,7 @@ double Integral(const double x0, const double xN, double (*F)(double x))
     {
         sum = 0;
         h = h/2;
-        for(int j = 1; j <= n; j++)
+        for(unsigned j = 1; j <= n; j++)
             sum += F(x0 + (double((j * 2) - 1) * h));
 
         res_last = res;
@@ -79,10 +79,27 @@ PyObject *Laplace_by_Integral(PyObject *self, PyObject *args)
 {
     int k1, k2, n;
     double p, q, k_del, np, res;
-    double x1, x2, sign1, sign2;
+    double x1, x2;
     if (!PyArg_ParseTuple(args, "iiid", &k1, &k2, &n, &p))
         return NULL;
     //TODO: add value range checking
+    if (k1 < 0){
+        PyErr_SetString(ErrorWrongValueObject, "k1 cant be less then 0!");
+        return NULL;
+    }
+    if (k2 < 0){
+        PyErr_SetString(ErrorWrongValueObject, "k2 cant be less then 0!");
+        return NULL;
+    }
+    if (n <= 0){
+        PyErr_SetString(ErrorWrongValueObject, "n cant be less or equal 0!");
+        return NULL;
+    }
+    if (p < 0.0 || p > 1.0){
+        PyErr_SetString(ErrorWrongValueObject, "Wrong value for probability!");
+        return NULL;
+    }
+
     q = 1.0 - p;
     k_del = sqrt(n * p * q);
     np = n * p;
@@ -91,5 +108,18 @@ PyObject *Laplace_by_Integral(PyObject *self, PyObject *args)
     res = Integral(0, x2, Fi_Laplcae) - Integral(0, x1, Fi_Laplcae);
     PyObject *result = new_probability_obj(res);
     return result;
-
 }
+
+PyObject *Freq_Deviation(PyObject *self, PyObject *args){
+    int n;
+    double p, eps, q, res, x;
+    if (!PyArg_ParseTuple(args, "idd", &n, &p, &eps))
+        return NULL;
+    q = 1.0 - p;
+    x = eps * sqrt(n / (p* q));
+    res = 2 * Integral(0, x, Fi_Laplcae);
+    PyObject *result = new_probability_obj(res);
+
+    return result;
+}
+
