@@ -26,7 +26,7 @@ static PyNumberMethods value_as_number = {
         Probabilit_multiply,                                  /* nb_multiply */
         Probabilit_remainder,                                  /* nb_remainder */
         0,                                  /* nb_divmod */
-        (unaryfunc)Probabilit_pow,                                  /* nb_power */
+        (ternaryfunc)Probabilit_pow,                                  /* nb_power */
         0,                                  /* nb_negative */
         0,                                  /* nb_positive */
         0,                                  /* nb_absolute */
@@ -72,7 +72,7 @@ PyTypeObject ProbabilityType = {
     .tp_new = ProbabilityObject_new,
     .tp_dealloc = (destructor) ProbabilityObject_dealloc,
     .tp_as_number = &value_as_number,
-    .tp_repr = Probability_repr
+    .tp_repr = (reprfunc)Probability_repr
 };
 
 /* methods */

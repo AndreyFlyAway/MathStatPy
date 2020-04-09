@@ -7,15 +7,6 @@
 const double INTEGRAL_ACCURACY = 0.0001;
 
 /* common */
-static double get_sign(double v)
-{
-    if (v >= 0)
-        return 1;
-    else
-        return -1;
-
-}
-
 double Fi(double x){
     double res = (1 / sqrt(2 * M_PI)) * exp(-(pow(x, 2)) / 2);
     return res;
@@ -31,12 +22,11 @@ double Integral(const double x0, const double xN, double (*F)(double x))
     unsigned n = 1;
     double h = (xN - x0);
     double res = (F(x0) + F(xN)) * (h / 2);
-    double res_last;
     double accuracy = INTEGRAL_ACCURACY;
     double sum = 0;
-    double delta, delta_abs;
+    double delta, delta_abs, res_last;
 
-    for(int k = 0; k < 5; k++)
+    for(int k = 0; k < 10; k++)
     {
         sum = 0;
         h = h/2;
@@ -45,7 +35,7 @@ double Integral(const double x0, const double xN, double (*F)(double x))
 
         res_last = res;
         res = (res / 2) + (h * sum);
-        delta = res_last / res; - 1;
+        delta = res_last / res - 1;
         delta_abs = ((delta < 0) ? -delta : delta);
 
         if((k > 1) && (delta_abs < accuracy))
@@ -53,7 +43,6 @@ double Integral(const double x0, const double xN, double (*F)(double x))
 
         n *= 2;
     }
-
     return res;
 }
 
